@@ -25,7 +25,7 @@ const Home = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Layout>
-
+        <div>Coming Soon</div>
       </Layout>
 
       <style jsx>{`
