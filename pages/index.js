@@ -8,15 +8,15 @@ import Layout from '../components/layout'
 
 
 const Home = () => {
-  const [data, setData] = useState([])
-  useEffect(() => {
-    async function getData() {
-      const res = await fetch('/api')
-      const newData = await res.json()
-      setData(newData)
-    }
-    getData()
-  }, [])
+  // const [data, setData] = useState([])
+  // useEffect(() => {
+  //   async function getData() {
+  //     const res = await fetch('/api')
+  //     const newData = await res.json()
+  //     setData(newData)
+  //   }
+  //   getData()
+  // }, [])
 
   return (
     <div>
@@ -25,21 +25,7 @@ const Home = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Layout>
-      {data.length > 0 ? (
-        data.map(d => (
-          <Table 
-            key={d.data.brand}
-            brand={d.data.brand}
-            item={d.data.item}
-            description={d.data.description}
-            image={d.data.image}
-          />
-        ))
-      ) : (
-        <>
-        <Table loading />
-        </>
-      )}
+
       </Layout>
 
       <style jsx>{`
