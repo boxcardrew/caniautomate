@@ -113,7 +113,7 @@ const Filter = ({ data, queryS, cat }) => {
     {products ? 
     <>
     <div>
-      <h3>Total Items {products.pagination.total}</h3>
+      <h6>Total Items {products.pagination.total}</h6>
     </div>
     </>
     : ''}
@@ -121,7 +121,7 @@ const Filter = ({ data, queryS, cat }) => {
     {products ?
       Object.entries(products.data.aggregations).map(([key, value]) => (
           <div key={key}>
-            <h5>{value.title}</h5>
+            <h6>{value.title}</h6>
             <ul>
               {
                 Object.entries(value.buckets).map(([keyB, valueB]) => (

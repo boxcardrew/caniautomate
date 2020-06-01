@@ -58,6 +58,7 @@ const Category = () => (
           display: inline-block;
           color: #fff;
           padding: 0 40px;
+          white-space: nowrap;
         }
         .item a {
           color: #ffffff87;
