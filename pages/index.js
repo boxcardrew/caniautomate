@@ -23,15 +23,6 @@ const brands = [
 ]
 
 const Home = () => {
-  const ref = useRef()
-  
-  useOnScreen(ref, () => {
-    setInterval(() => {
-      if (ref.current.firstElementChild.scrollLeft !== ref.current.firstElementChild.scrollWidth) {
-        ref.current.firstElementChild.scrollTo(ref.current.firstElementChild.scrollLeft + 1, 0);
-      }
-    }, 75);
-  });
 
   return (
     <div>
@@ -60,7 +51,7 @@ const Home = () => {
               <img src="/home@2x.png" ></img>
             </div>
           </section>
-          <section className="brands" ref={ref}>
+          <section className="brands">
             <div className="brand-grid">
               {brands.map(({ src, alt }) => (
                 <div className="image-container" key={alt}>
@@ -275,8 +266,6 @@ const Home = () => {
           align-items: center;
           overflow-x: scroll;
           gap: 4em;
-          padding-left: 10em;
-          padding-right: 6em;
           padding-bottom: 24px;
         }
         /* Guide Section */
