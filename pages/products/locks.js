@@ -8,7 +8,7 @@ import Layout from "../../components/layout";
 import { useRouter } from "next/router";
 import queryString from "query-string";
 
-const URL = `http://127.0.0.1:3001/api/explore?category=locks`;
+const URL = `http://127.0.0.1:3000/api/explore?category=locks`;
 
 export default function Lighting({ initialData }) {
   const { query } = useRouter();

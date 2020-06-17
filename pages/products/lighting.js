@@ -8,7 +8,7 @@ import Layout from "../../components/layout";
 import { useRouter } from "next/router";
 import queryString from "query-string";
 
-const URL = `http://127.0.0.1:3001/api/explore?category=lighting`;
+const URL = `http://127.0.0.1:3000/api/explore?category=lighting`;
 
 export default function Lighting({ initialData }) {
   const { query } = useRouter();
@@ -136,6 +136,7 @@ export default function Lighting({ initialData }) {
               ))
             : "loading..."}
         </div>
+        <div className="footer">_____</div>
 
         <style jsx>{`
       .main {
@@ -173,6 +174,7 @@ export default function Lighting({ initialData }) {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: flex-start;
+        min-width: 100vh;
       }
       .card {
         position: relative;

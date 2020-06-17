@@ -1,5 +1,5 @@
 
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import Head from 'next/head'
 import Layout from '../components/layout'
 import Link from 'next/link'
@@ -23,9 +23,10 @@ const brands = [
 ]
 
 const Home = () => {
-  const ref = useRef();
+  const ref = useRef()
+  
   useOnScreen(ref, () => {
-    self.setInterval(() => {
+    setInterval(() => {
       if (ref.current.firstElementChild.scrollLeft !== ref.current.firstElementChild.scrollWidth) {
         ref.current.firstElementChild.scrollTo(ref.current.firstElementChild.scrollLeft + 1, 0);
       }
@@ -62,7 +63,7 @@ const Home = () => {
           <section className="brands" ref={ref}>
             <div className="brand-grid">
               {brands.map(({ src, alt }) => (
-                <div className="image-container">
+                <div className="image-container" key={alt}>
                   <img src={src} alt={alt} />
                 </div>
               ))}

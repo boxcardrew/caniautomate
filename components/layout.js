@@ -1,6 +1,6 @@
 import Nav from "./nav"
 import Head from 'next/head';
-import { loadGetInitialProps } from "next/dist/next-server/lib/utils"
+import Footer from './footer'
 
 
 const Layout = props => (
@@ -10,7 +10,7 @@ const Layout = props => (
     </Head>
     <Nav />
     {props.children}
-
+    <Footer />
   <style jsx>{`
 
     :global(body) {  

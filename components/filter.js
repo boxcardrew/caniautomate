@@ -292,12 +292,11 @@ const Filter = ({ data, queryS, cat }) => {
         .filter-list {
           padding-top: 60px;
           grid-area: sidebar;
-          position: fixed;
           top: 140px;
           width: 280px;
           padding-left: 4.5em;
           padding-bottom: 220px;
-          height: 100%;
+          min-height: 100vh;
           background: #fff;
           overflow-y: scroll;
           box-shadow: 0px 3px 6px #00000029;

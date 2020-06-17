@@ -12,9 +12,21 @@ const Nav = () => {
   const [isShown, setIsShown] = useState(false);
   const displayCats = (e) => {
     const item = document.getElementById('expanded');
-    item.classList.toggle('active')
+    item.classList.toggle('active');
+    let pressed = (item.getAttribute('aria-pressed') === true);
+
+    item.setAttribute('aria-pressed', !pressed);
     setIsShown(!isShown);
     };
+  const handleKeyPress = function(event) {
+        // Check to see if space or enter were pressed
+    if (event.key === " " || event.key === "Enter" || event.key === "Spacebar") { // "Spacebar" for IE11 support
+    // Prevent the default action to stop scrolling when space is pressed
+    event.preventDefault();
+    displayCats(event.target);
+    }
+  }
+  
   const links = [
     { path: '/build', label: 'Build', icon: '/buildx2.png' },
     { path: '/guides', label: 'Guides', icon: '/guidesx2.png' },
@@ -25,16 +37,16 @@ const Nav = () => {
 
 
   return (
-    <nav>
-      <div style={{ maxWidth: '89vw', margin: '0 auto' }}>
-        <ul>
-          <li className="logo">
-            <Link href='/'>
-              <a><img src="/cia-logox2.png" /></a>
-            </Link>
-          </li>
+    <nav className="menu">
+      <div id="#large-nav" style={{ margin: '0 20px' }}>
+          <ul className="nav-items">
+            <li className="logo">
+              <Link href='/'>
+                <a><img src="/Light-Logo-2x.png" /></a>
+              </Link>
+            </li>
           <div className="nav-links">
-            <div className=" nav-links nav-start">
+            <div className="nav-left">
             {links.map(({ path, label, icon}) => (
               <ActiveLink activeClassName="active" href={path} key={label}>
                 <a className="">
@@ -46,21 +58,21 @@ const Nav = () => {
               </ActiveLink>
             ))}
             {isProductsRoute 
-            ? <a id="expanded" className="active" role='button'>
+            ? <a id="expanded" className="active" role='button' aria-pressed="false" tabIndex="0">
                 <li>
-                  <img src="/explorex2.png" width="40" height="40"/>
+                  <img src="/explorex2.png" width="40px" height="40px"/>
                   <span className="label">Explore</span>
                 </li>
               </a>
-            : <a id="expanded" className="" onClick={displayCats} role='button'>
+            : <a id="expanded" className="" onClick={displayCats} onKeyDown={handleKeyPress} role='button' aria-pressed="false" tabIndex="0">  
                 <li>
-                  <img src="/explorex2.png" width="40" height="40"/>
+                  <img src="/explorex2.png" width="40px" height="40px"/>
                   <span className="label">Explore</span>
                 </li>
               </a>
             } 
             </div>
-            <div className="nav-links">
+            <div className="nav-right">
               <li className="right">
                 <form className="search">
                   <span><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span>
@@ -78,17 +90,20 @@ const Nav = () => {
                 </Link>
               </li>
             </div>
-          </div>
-        </ul>
+            </div>
+          </ul>
       </div>
       {(isShown) ? <Catergory /> : null}
+      <nav id="small-nav">
+
+      </nav>
       
 
       <style jsx>{`
         :global(body) {
           margin: 0;
         }
-        nav {
+        .menu {
           position: sticky;
           top: 0;
           text-align: center;
@@ -100,6 +115,9 @@ const Nav = () => {
           box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
 
         }
+        #small-nav {
+          display: none;
+        }
         .logo {
           grid-area: logo;
           position: relative;
@@ -107,26 +125,26 @@ const Nav = () => {
         .nav-links {
           grid-area: nav;
           display: flex;
+          justify-content: space-between;
           align-items: center;
-          justify-content: space-around;
         }
         .nav-start {
-          margin-right: auto;
           margin-left: 40px;
         }
-        .nav-start a {
+        }
+        .nav-left a {
           width: 105px;
           height: 82px;
           margin: 0 20px;
         }
-        .nav-start .active {
+        .nav-left .active {
           width: 105px;
           height: 82px;
           background: #EDF1F7;
           margin: 0 20px;
           box-shadow: 0px 3px 6px #00000029;
         }
-        .nav-start a:hover {
+        .nav-left a:hover {
           width: 105px;
           height: 82px;
           background: #EDF1F7;
@@ -152,18 +170,20 @@ const Nav = () => {
           width: 2px;
           background: #70707030;
           position: absolute;
-          right: -85px;
+          right: 0;
           top: 0;
         }
-
+        .right {
+          display: inline-block;
+        }
         .logo img {
           width: 120px;
           height: auto;
         }
-        ul {
+        .nav-items {
           display: grid;
           grid-template-rows: auto;
-          grid-template-columns: 250px 1fr;
+          grid-template-columns: 262px 1fr;
           grid-template-areas: 
             'logo nav';
           list-style: none;
@@ -180,17 +200,15 @@ const Nav = () => {
           display: block;
           font-weight: 700;
         }
-        ul > div {
-          display: flex;
-          padding-right: 3.7em;
-        }
         a {
           color: #4173C0;
           text-decoration: none;
           font-size: 13px;
+          display: inline-block;
         }
-        .logo {
-          margin-right: auto;
+        .nav-right {
+          display: flex;
+          align-items: center;
         }
         .search {
           margin-right: 1em;
