@@ -144,7 +144,7 @@ export default function Lighting({ initialData }) {
         grid-template-columns: 250px 1fr;
         grid-template-areas: 
           'filter filter'
-          'sidebar header'
+          'sidebar products'
           'sidebar products'
           'footer footer' 
       }
