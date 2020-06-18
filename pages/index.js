@@ -1,5 +1,5 @@
 
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import Head from 'next/head'
 import Layout from '../components/layout'
 import Link from 'next/link'
@@ -22,7 +22,25 @@ const brands = [
   { src: '/brands/tplink.png', alt: 'wyze cam'},
 ]
 
+const useIsMounted = () => {
+  const [isMounted, setIsMounted] = useState(false)
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+  return isMounted
+}
+
 const Home = () => {
+  const isMounted = useIsMounted();
+  const brandRef = useRef(); 
+  if (isMounted) {
+    const scroll = document.getElementById('scrollable')
+    setInterval(() => {
+      if (scroll.scrollLeft !== scroll.scrollWidth) {
+        scroll.scrollTo(scroll.scrollLeft + 1, 0);
+      }
+    }, 75)
+  } 
 
   return (
     <div>
@@ -52,7 +70,7 @@ const Home = () => {
             </div>
           </section>
           <section className="brands">
-            <div className="brand-grid">
+            <div id="scrollable" className="brand-grid">
               {brands.map(({ src, alt }) => (
                 <div className="image-container" key={alt}>
                   <img src={src} alt={alt} />
@@ -266,6 +284,8 @@ const Home = () => {
           align-items: center;
           overflow-x: scroll;
           gap: 4em;
+          padding-left: 10em;
+          padding-right: 6em;
           padding-bottom: 24px;
         }
         /* Guide Section */
