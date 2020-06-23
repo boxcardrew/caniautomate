@@ -79,7 +79,7 @@ const Nav = () => {
                 <input placeholder="Search for anything"></input>
                 </form>
               </li>
-              <li className="right">
+              {/* <li className="right">
                 <Link href="/">
                   <a>Alert</a>
                 </Link>
@@ -88,7 +88,7 @@ const Nav = () => {
                 <Link href="/">
                   <a>Profile</a>
                 </Link>
-              </li>
+              </li> */}
             </div>
             </div>
           </ul>

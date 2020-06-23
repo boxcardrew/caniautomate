@@ -1,6 +1,7 @@
 import Nav from "./nav"
 import Head from 'next/head';
-import Footer from './footer'
+import Footer from './footer';
+
 
 
 const Layout = props => (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Filter from "../../components/filter";
 import Categroy from "../../components/category";
@@ -7,10 +7,20 @@ import useSWR from "swr";
 import Layout from "../../components/layout";
 import { useRouter } from "next/router";
 import queryString from "query-string";
+import Cookie from 'js-cookie';
+import { useListDispatch, setListCookie, useListState } from "../../components/build-context";
+
 
 const URL = `http://127.0.0.1:3000/api/explore?category=lighting`;
 
+
+
 export default function Lighting({ initialData }) {
+
+  // const [list, setList] = useState('')
+
+
+  
   const { query } = useRouter();
   const { brand, price, rating } = query;
   let parsedQuery = URL;
@@ -23,6 +33,24 @@ export default function Lighting({ initialData }) {
     parsedQuery = parsedQuery + "&" + queryS;
   }
 
+
+  /*****List Context ******/
+  const dispatch = useListDispatch();
+  const { list } = useListState();
+
+  const addProduct = (item) => {
+    dispatch({
+      type: 'add',
+      payload: item.productId
+    })
+  }
+  
+  /* Cookies Options, available server side */
+  useEffect(() => {
+    setListCookie(list)
+  }, [list])
+
+  /*Get Products */
   const { data } = useSWR(parsedQuery, fetcher, { initialData });
   console.log(queryS);
 
@@ -36,7 +64,7 @@ export default function Lighting({ initialData }) {
           {data
             ? data.map((item) => (
                 <div className="card">
-                  <button className="add">
+                  <button className="add" onClick={() => addProduct(item)}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       height="24"

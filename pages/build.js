@@ -1,46 +1,59 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from './../components/layout'
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import useSWR from 'swr';
+import fetcher from '../libs/fetcher'
+import useLocalFetch from '../libs/useLocalFetch';
+import {useListState, useListDispatch, setListCookie} from '../components/build-context'
 
-const data = [
-  {
-    category: 'speakers',
-    brand: 'Amazon',
-    image: 'https://images-na.ssl-images-amazon.com/images/I/61O1%2BNI15FL._AC_SL1000_.jpg',
-    description: 'Echo (3rd Gen)- Smart speaker with Alexa - Charcoal',
-    msrp: 99.99,
-    price: 69.99,
-    where: 'amazon',
-    link: 'https://www.amazon.com/dp/B07P86SQ52/',
-  },
-  {
-    category: 'speakers',
-    brand: 'Amazon',
-    image: 'https://images-na.ssl-images-amazon.com/images/I/61O1%2BNI15FL._AC_SL1000_.jpg',
-    description: 'Echo (3rd Gen)- Smart speaker with Alexa - Charcoal',
-    msrp: 99.99,
-    price: 69.99,
-    where: 'amazon',
-    link: 'https://www.amazon.com/dp/B07P86SQ52/',
-  },
-  {
-    category: 'lighting',
-    brand: 'Sengled',
-    image: 'https://images-na.ssl-images-amazon.com/images/I/717tz41gwQL._AC_SL1500_.jpg',
-    description: 'Sengled Smart Light Bulb, 800LM Soft White (2700K), A19 Dimmable, 9W (60W Equivalent), 4 Pack',
-    msrp: 38.99,
-    price: 38.99,
-    where: 'amazon',
-    link: 'https://www.amazon.com/dp/B07T4432YH/',
-  },
-]
+import { parseCookies } from '../libs/cookies';
 
-const Build = () => (
+const Build = () => {
+  
+  
+  /*List Context*/
+  const { list } = useListState();
+  const dispatch = useListDispatch();
+  
+  const removeItem = (item) => {
+    dispatch({
+      type: 'remove',
+      payload: item.productId.toString()
+    })
+  }
+  
+  useEffect(() => {
+    setListCookie(list)
+  }, [list])
+  
+  console.log(list);
+  
+  /**Get list **/
+  const [newData, setNewData] = useState([])
+  let URL = `/api/list?productId=${list}`;
+  if (list.length === 0) {
+    URL = ``
+  } else {
+    URL = `/api/list?productId=${list}`;
+  }
+
+  const { data } = useSWR(URL, fetcher);
+ 
+  useEffect(() => {
+    if (data) {
+      setNewData(data)
+    } 
+  }, [data])
+
+
+return (
   <div>
     <Head>
       <title>Can I Automate - Build</title>
     </Head>
     <Layout>
+    {(!newData) ? <div>loading</div> : (
       <div className="main">
         <div>
           <table>
@@ -64,7 +77,7 @@ const Build = () => (
                 <th>Price</th>
                 <th>Where</th>
               </tr>
-              {data.filter(item => item.category === 'speakers').map(({ brand, image, description, msrp, price, where, link }) => (
+              {newData.filter(item => item.category === 'speakers').map(({ brand, image, item, msrp, price, where, link, productId }) => (
                 <tr className="tr_product" id="toggle">
                   <td className="td_image">
                     <img src={image} height="63px" width="63px"/>
@@ -72,9 +85,9 @@ const Build = () => (
                   <td className="td_brand">{brand}</td>
                   <td className="td_item">
                     <h6>{brand}</h6>
-                    <span>{description}</span>
+                    <span>{item}</span>
                   </td>
-                  <td className="td_msrp"><h6>MSRP</h6> <sup>$</sup>{msrp}</td>
+                  <td className="td_msrp"><h6>MSRP</h6> <sup>$</sup>{price}</td>
                   <td className="td_price"><h6>Price</h6> <sup>$</sup>{price}</td>
                   <td className="td_where"><h6>Where</h6>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42.21 42.21" width="50px">
@@ -85,7 +98,7 @@ const Build = () => (
                   <td className="td_buy"><a href={link} className="btn primary" target="_blank" >Buy</a></td>
                   <td className="td_remove"><button className="btn secondary large">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M14.59 8L12 10.59 9.41 8 8 9.41 10.59 12 8 14.59 9.41 16 12 13.41 14.59 16 16 14.59 13.41 12 16 9.41 14.59 8zM12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="#d9534f"/></svg></button>  
-                    <button className="btn secondary">Remove</button>
+                    <button className="btn secondary" onClick={() => removeItem(productId)} >Remove</button>
                   </td>
                 </tr>
               ))}
@@ -118,7 +131,7 @@ const Build = () => (
                 <th>Price</th>
                 <th>Where</th>
               </tr>
-            {data.filter(item => item.category === 'lighting').map(({ brand, image, description, msrp, price, where, link }) => (
+            {newData.filter(item => item.category === 'lighting').map(({ brand, image, item, msrp, price, where, link, productId }) => (
               <tr className="tr_product" id="toggle">
                 <td className="td_image">
                   <img src={image} height="63px" width="63px"/>
@@ -126,9 +139,9 @@ const Build = () => (
                 <td className="td_brand">{brand}</td>
                 <td className="td_item">
                   <h6>{brand}</h6>
-                  <span>{description}</span>
+                  <span>{item}</span>
                 </td>
-                <td className="td_msrp"><h6>MSRP</h6> <sup>$</sup>{msrp}</td>
+                <td className="td_msrp"><h6>MSRP</h6> <sup>$</sup>{price}</td>
                 <td className="td_price"><h6>Price</h6> <sup>$</sup>{price}</td>
                 <td className="td_where"><h6>Where</h6>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42.21 42.21" width="50px">
@@ -137,9 +150,9 @@ const Build = () => (
                   </svg>
                 </td>
                 <td className="td_buy"><a href={link} className="btn primary" target="_blank" >Buy</a></td>
-                <td className="td_remove"><button className="btn secondary large">
+                <td className="td_remove"><button className="btn secondary large" onClick={() => removeItem({productId})}>
                   <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M14.59 8L12 10.59 9.41 8 8 9.41 10.59 12 8 14.59 9.41 16 12 13.41 14.59 16 16 14.59 13.41 12 16 9.41 14.59 8zM12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="#d9534f"/></svg></button>  
-                  <button className="btn secondary">Remove</button>
+                  <button className="btn secondary" onClick={() => removeItem(productId)} >Remove</button>
                 </td>
               </tr>
             ))}
@@ -153,6 +166,7 @@ const Build = () => (
         </table>
         </div>
       </div>
+    )} 
     </Layout>
 
     <style jsx>{`
@@ -299,7 +313,7 @@ const Build = () => (
     
     @media only screen and (max-width: 850px) {
       table {
-      max-width: 95%;
+      width: 90%;
       font-size: 16px;
       padding-left: 0;
       padding-right: 0;
@@ -456,5 +470,14 @@ const Build = () => (
     `}</style>
   </div>
 )
+  }
+
+  // Build.getInitialProps = ({ req }) => {
+  //   const cookies = parseCookies(req);
+
+  //   return {
+  //     initialListValue: cookies.list
+  //   }
+  // }
 
 export default Build
