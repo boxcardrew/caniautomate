@@ -27,8 +27,6 @@ const Build = () => {
     setListCookie(list)
   }, [list])
   
-  console.log(list);
-  
   /**Get list **/
   const [newData, setNewData] = useState([])
   let URL = `/api/list?productId=${list}`;
