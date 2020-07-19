@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from "react";
 
 function useOnScreen(ref, callback) {
   useEffect(() => {
@@ -6,21 +6,21 @@ function useOnScreen(ref, callback) {
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.intersectionRatio === 1) {
-            callback()
+            callback();
           }
         },
         {
           root: null,
-          rootMargin: '100px',
+          rootMargin: "100px",
           threshold: 1.0,
         }
-      )
-  
+      );
+
       if (ref.current) {
-        observer.observe(ref.current)
+        observer.observe(ref.current);
       }
     }
-  }, [])
+  }, []);
 }
 
 export default useOnScreen;

@@ -91,7 +91,9 @@ const Filter = ({ data, queryS, cat }) => {
     router.push({
       pathname : `/products/${cat}`,
       query: newFilters,
-    })
+    }, undefined,
+      {shallow: true}
+    )
     queryS = stringed
   }
 

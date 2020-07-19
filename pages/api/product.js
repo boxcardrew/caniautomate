@@ -10,9 +10,10 @@ handler.use(middleware);
 
 
 handler.get (async (req, res) => {
+  
   let { filter } = aqp(req.query, {
     castParams: {
-      productId: Number
+      productId: 'string'
     }
   }
     );

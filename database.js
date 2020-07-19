@@ -6,6 +6,8 @@ const client = new MongoClient('mongodb+srv://Admin:DT0po3IUyv5HKp4M@cluster0-dx
   useUnifiedTopology: true,
 })
 
+
+
 async function database(req, res, next) {
   if (!client.isConnected()) await client.connect();
   req.dbClient = client;
@@ -13,8 +15,12 @@ async function database(req, res, next) {
   return next();
 }
 
+
+
 const middleware = nextConnect();
 
 middleware.use(database);
 
 export default middleware;
+
+export {client};

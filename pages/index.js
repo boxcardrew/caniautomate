@@ -1,72 +1,80 @@
-
-import { useRef, useEffect, useState } from 'react'
-import Head from 'next/head'
-import Layout from '../components/layout'
-import Link from 'next/link'
-import useOnScreen from '../libs/useOnScreen'
+import { useRef, useEffect, useState } from "react";
+import Head from "next/head";
+import Layout from "../components/layout";
+import Link from "next/link";
+import useOnScreen from "../libs/useOnScreen";
+import { getInitialQueryParams } from "../components/build-context";
 
 const brands = [
-  { src: '/brands/alexa.png', alt: 'amazon alexa'},
-  { src: '/brands/ecobee.png', alt: 'ecobee'},
-  { src: '/brands/google.png', alt: 'google home'},
-  { src: '/brands/hue.png', alt: 'Philps hue'},
-  { src: '/brands/logitech.png', alt: 'Logitech'},
-  { src: '/brands/nest.png', alt: 'Lutron'},
-  { src: '/brands/lutron.png', alt: 'Nest'},
-  { src: '/brands/ring.png', alt: 'ring'},
-  { src: '/brands/sengled.png', alt: 'sengled'},
-  { src: '/brands/smartthings.png', alt: 'smart things'},
-  { src: '/brands/sonos.png', alt: 'sonos speakers'},
-  { src: '/brands/wyze.png', alt: 'tp-link'},
-  { src: '/brands/wemo.png', alt: 'wemo'},
-  { src: '/brands/tplink.png', alt: 'wyze cam'},
-]
+  { src: "/brands/alexa.png", alt: "amazon alexa" },
+  { src: "/brands/ecobee.png", alt: "ecobee" },
+  { src: "/brands/google.png", alt: "google home" },
+  { src: "/brands/hue.png", alt: "Philps hue" },
+  { src: "/brands/logitech.png", alt: "Logitech" },
+  { src: "/brands/nest.png", alt: "Lutron" },
+  { src: "/brands/lutron.png", alt: "Nest" },
+  { src: "/brands/ring.png", alt: "ring" },
+  { src: "/brands/sengled.png", alt: "sengled" },
+  { src: "/brands/smartthings.png", alt: "smart things" },
+  { src: "/brands/sonos.png", alt: "sonos speakers" },
+  { src: "/brands/wyze.png", alt: "tp-link" },
+  { src: "/brands/wemo.png", alt: "wemo" },
+  { src: "/brands/tplink.png", alt: "wyze cam" },
+];
 
 const useIsMounted = () => {
-  const [isMounted, setIsMounted] = useState(false)
+  const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
-    setIsMounted(true)
-  }, [])
-  return isMounted
-}
+    setIsMounted(true);
+  }, []);
+  return isMounted;
+};
 
 const Home = () => {
   const isMounted = useIsMounted();
-  const brandRef = useRef(); 
+  const brandRef = useRef();
   if (isMounted) {
-    const scroll = document.getElementById('scrollable')
+    const scroll = document.getElementById("scrollable");
     setInterval(() => {
       if (scroll.scrollLeft !== scroll.scrollWidth) {
         scroll.scrollTo(scroll.scrollLeft + 1, 0);
       }
-    }, 75)
-  } 
+    }, 75);
+  }
+  if (isMounted) {
+    getInitialQueryParams()
+  }
 
   return (
     <div>
       <Head>
         <title>Home</title>
-        <link rel='icon' href='/favicon.ico' />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
         <div className="main">
           <section className="hero">
-              <h1 className="title">
-                Find out what you can Automate
-              </h1>
-              <h4 className="subtitle">
-                You can find light bulbs, switches, vacuums, sprinklers, cameras, and more.
-              </h4>
-              <Link href='/build' ><a className='btn'>Build Now</a></Link>
+            <h1 className="title">Find out what you can Automate</h1>
+            <h4 className="subtitle">
+              You can find light bulbs, switches, vacuums, sprinklers, cameras,
+              and more.
+            </h4>
+            <Link href="/build">
+              <a className="btn">Build Now</a>
+            </Link>
           </section>
           <section className="explore">
             <div className="explore-heading">
-              <h3 className="subtitle">Explore compatible products for your home</h3>
+              <h3 className="subtitle">
+                Explore compatible products for your home
+              </h3>
               <p>We only show you products that work with your Smart Home</p>
-              <Link href="/products" ><a className='btn light'>Explore Now</a></Link>           
+              <Link href="/products">
+                <a className="btn light">Explore Now</a>
+              </Link>
             </div>
             <div className="explore-right">
-              <img src="/home@2x.png" ></img>
+              <img src="/home@2x.png"></img>
             </div>
           </section>
           <section className="brands">
@@ -120,9 +128,16 @@ const Home = () => {
               </div>
             </div>
             <div className="guides-right">
-              <h3 className="subtitle">Find a build guide that can show you the way</h3>
-              <p>Everything from quick start guides to fully automated homes, and everything between.</p>
-              <Link href="/products" ><a className='btn'>Find Guides</a></Link>           
+              <h3 className="subtitle">
+                Find a build guide that can show you the way
+              </h3>
+              <p>
+                Everything from quick start guides to fully automated homes, and
+                everything between.
+              </p>
+              <Link href="/products">
+                <a className="btn">Find Guides</a>
+              </Link>
             </div>
           </section>
         </div>
@@ -394,8 +409,7 @@ const Home = () => {
 
       `}</style>
     </div>
-  )
-}
+  );
+};
 
-
-export default Home
+export default Home;

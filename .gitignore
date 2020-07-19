@@ -6,6 +6,7 @@
 .pnp.js
 now.json
 next.config.js
+components/test.json
 
 # testing
 /coverage

@@ -1,46 +1,45 @@
-import React, { Children, useEffect } from 'react';
-import Link from 'next/link'
-import { useRouter } from 'next/router';
-import ActiveLink from '../libs/ActiveLink'
-
-
+import React, { Children, useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import ActiveLink from "../libs/ActiveLink";
 
 const links = [
-  { path: '/products/lighting', title: 'Lighting & Switches', },
-  { path: '/products/locks', title: 'Locks & Security', class: '' },
-  { path: '/products/thermostats', title: 'Thermostats', class: '' },
-  { path: '/products/cameras', title: 'Cameras & Doorbells', class: '' },
-  { path: '/products/plugs', title: 'Plugs & Outlets', class: '' },
-  { path: '/products/speakers', title: 'Speakers', class: '' },
-  { path: '/products/network-wifi', title: 'Network & Wifi', class: '' },
-  { path: '/products/appliances', title: 'Appliances', class: '' },
-  { path: '/products/outdoor', title: 'Outdoor', class: '' },
-  { path: '/products/others', title: 'Others', class: '' },
-]
+  { path: "/products/lighting", title: "Lighting & Switches" },
+  { path: "/products/hubs", title: "Hubs & Bridges", class: "" },
+  { path: "/products/locks", title: "Locks & Security", class: "" },
+  { path: "/products/thermostats", title: "Thermostats", class: "" },
+  { path: "/products/cameras", title: "Cameras & Doorbells", class: "" },
+  { path: "/products/plugs", title: "Plugs & Outlets", class: "" },
+  { path: "/products/speakers", title: "Speakers", class: "" },
+  { path: "/products/network-wifi", title: "Network & Wifi", class: "" },
+  { path: "/products/appliances", title: "Appliances", class: "" },
+  { path: "/products/outdoor", title: "Outdoor", class: "" },
+  { path: "/products/others", title: "Others", class: "" },
+];
 
 const Category = () => {
-
   useEffect(() => {
     if (window !== undefined) {
-      const target = document.getElementById('scrollable')
-  
-      target.addEventListener('wheel', event => {
-      const toLeft  = event.deltaY < 0 && target.scrollLeft > 0
-      const toRight = event.deltaY > 0 && target.scrollLeft < target.scrollWidth - target.clientWidth
-  
-      if (toLeft || toRight) {
-        event.preventDefault()
-        target.scrollLeft += event.deltaY
-      }
-      })
-    }
-    }, [])
+      const target = document.getElementById("scrollable");
 
+      target.addEventListener("wheel", (event) => {
+        const toLeft = event.deltaY < 0 && target.scrollLeft > 0;
+        const toRight =
+          event.deltaY > 0 &&
+          target.scrollLeft < target.scrollWidth - target.clientWidth;
+
+        if (toLeft || toRight) {
+          event.preventDefault();
+          target.scrollLeft += event.deltaY;
+        }
+      });
+    }
+  }, []);
 
   return (
     <div className="filter">
       <ul id="scrollable" className="list">
-        {links.map(({ path, title, }) => (
+        {links.map(({ path, title }) => (
           <li key={path} className="item">
             <ActiveLink href={path} activeClassName="active">
               <a className="">{title}</a>
@@ -57,7 +56,8 @@ const Category = () => {
             top: 110px;
             width: 100vw;
             height: 80px;
-            background: transparent linear-gradient(90deg, #4173C0 0%, #5C9AF8 100%) 0% 0% no-repeat;
+            background: transparent
+              linear-gradient(90deg, #4173c0 0%, #5c9af8 100%) 0% 0% no-repeat;
             box-shadow: 0px 3px 6px #00000029;
             z-index: 2;
           }
@@ -74,7 +74,7 @@ const Category = () => {
           .list::-webkit-scrollbar {
             height: 0px;
           }
-          
+
           .list li {
             display: inline-block;
             color: #fff;
@@ -97,18 +97,17 @@ const Category = () => {
           }
           .item .active::before {
             position: absolute;
-            content: '';
+            content: "";
             background: #f6f6f6;
             height: 4px;
             width: 110%;
             bottom: -20px;
             left: -4%;
           }
-
         `}
       </style>
     </div>
-  )
-}
+  );
+};
 
 export default Category;

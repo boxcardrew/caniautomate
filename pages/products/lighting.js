@@ -6,25 +6,48 @@ import fetcher from "../../libs/fetcher";
 import useSWR from "swr";
 import Layout from "../../components/layout";
 import { useRouter } from "next/router";
+import Router from "next/router";
 import queryString from "query-string";
-import Cookie from 'js-cookie';
-import { useListDispatch, setListCookie, useListState } from "../../components/build-context";
+import Cookie from "js-cookie";
+import {
+  useListDispatch,
+  setListCookie,
+  useListState,
+  getQueryParams,
+  getInitialQueryParams,
+} from "../../components/build-context";
 
+let URL = `http://localhost:3000/api/explore?category=lighting`;
 
-const URL = `http://127.0.0.1:3000/api/explore?category=lighting`;
+export default function Lighting() {
 
+  const buildParams = getQueryParams()
 
-
-export default function Lighting({ initialData }) {
-
-  // const [list, setList] = useState('')
-
-
+  console.log(buildParams)
   
+  const [isCompatibilityMode, setCompatibilityMode] = useState(true);
+
+
+  const endpoint = (isCompatibilityMode) ? 
+    (buildParams.hubs.length) ?
+    `http://localhost:3000/api/explore?category=lighting&worksWith.hub=${buildParams.hubs}`
+    : `http://localhost:3000/api/explore?category=lighting&hubRequired=false`
+    : `http://localhost:3000/api/explore?category=lighting`;
+  
+  console.log(endpoint)
+  // console.log(brands)
+  // useEffect(() => {
+  //   if (brands) {
+  //     URL = `${URL}&brand=${getQueryParams()}`
+  //   }
+  // }, [])
+  // const [list, setList] = useState('')
+  // console.log(initialData)
+  const { router } = useRouter()
   const { query } = useRouter();
   const { brand, price, rating } = query;
   let parsedQuery = URL;
-  let cat = 'lighting'
+  let cat = "lighting";
   let queryS = queryString.stringify(query, {
     arrayFormat: "comma",
   });
@@ -33,25 +56,25 @@ export default function Lighting({ initialData }) {
     parsedQuery = parsedQuery + "&" + queryS;
   }
 
-
   /*****List Context ******/
   const dispatch = useListDispatch();
   const { list } = useListState();
 
   const addProduct = (item) => {
     dispatch({
-      type: 'add',
-      payload: item.productId
-    })
-  }
-  
+      type: "add",
+      payload: item.productId,
+    });
+    Router.push('/build')
+  };
+
   /* Cookies Options, available server side */
   useEffect(() => {
-    setListCookie(list)
-  }, [list])
+    setListCookie(list);
+  }, [list]);
 
   /*Get Products */
-  const { data } = useSWR(parsedQuery, fetcher, { initialData });
+  const { data } = useSWR(endpoint, fetcher, );
   console.log(queryS);
 
   return (
@@ -291,8 +314,23 @@ export default function Lighting({ initialData }) {
   );
 }
 
-export async function getServerSideProps() {
-  // const query = useRouter();
-  const data = await fetcher(URL);
-  return { props: { initialData: data } };
-}
+// export async function getServerSideProps(context) {
+  
+//   // const data = await fetcher(URL);
+//   // return { props: { initialData: data } };
+//   // const qp = async () => {
+//   //   return getQueryParams();
+//   // }
+//   const query = context.query;
+//   const newQp = ['Amazon', 'TP-Link'];
+//   const { brand } = query;
+
+//   console.log(brand)
+//   await client.connect();
+//   const db = client.db('cia')
+//   let products = await db.collection('products').find( { brand: {$in: newQp}} ).toArray();
+//   let data = await JSON.parse(JSON.stringify(products))
+//   console.log(data);
+//   return {props: {data}}
+//   }  
+

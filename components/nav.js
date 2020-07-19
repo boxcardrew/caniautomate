@@ -1,82 +1,109 @@
-import  { useState } from 'react'
-import Link from 'next/link'
-import ActiveLink from '../libs/ActiveLink'
-import Catergory from './category'
-import { useRouter } from 'next/router'
-
-
-
+import { useState } from "react";
+import Link from "next/link";
+import ActiveLink from "../libs/ActiveLink";
+import Catergory from "./category";
+import { useRouter } from "next/router";
 
 const Nav = () => {
   const router = useRouter();
   const [isShown, setIsShown] = useState(false);
   const displayCats = (e) => {
-    const item = document.getElementById('expanded');
-    item.classList.toggle('active');
-    let pressed = (item.getAttribute('aria-pressed') === true);
+    const item = document.getElementById("expanded");
+    item.classList.toggle("active");
+    let pressed = item.getAttribute("aria-pressed") === true;
 
-    item.setAttribute('aria-pressed', !pressed);
+    item.setAttribute("aria-pressed", !pressed);
     setIsShown(!isShown);
-    };
-  const handleKeyPress = function(event) {
-        // Check to see if space or enter were pressed
-    if (event.key === " " || event.key === "Enter" || event.key === "Spacebar") { // "Spacebar" for IE11 support
-    // Prevent the default action to stop scrolling when space is pressed
-    event.preventDefault();
-    displayCats(event.target);
+  };
+  const handleKeyPress = function (event) {
+    // Check to see if space or enter were pressed
+    if (
+      event.key === " " ||
+      event.key === "Enter" ||
+      event.key === "Spacebar"
+    ) {
+      // "Spacebar" for IE11 support
+      // Prevent the default action to stop scrolling when space is pressed
+      event.preventDefault();
+      displayCats(event.target);
     }
-  }
-  
-  const links = [
-    { path: '/build', label: 'Build', icon: '/buildx2.png' },
-    { path: '/guides', label: 'Guides', icon: '/guidesx2.png' },
-  ];
-  const isProductsRoute = router.pathname.split('/')[1] === 'products';
-  console.log(router.pathname)
-  
+  };
 
+  const links = [
+    { path: "/build", label: "Build", icon: "/buildx2.png" },
+    { path: "/guides", label: "Guides", icon: "/guidesx2.png" },
+  ];
+  const isProductsRoute = router.pathname.split("/")[1] === "products";
+  console.log(router.pathname);
 
   return (
     <nav className="menu">
-      <div id="#large-nav" style={{ margin: '0 20px' }}>
-          <ul className="nav-items">
-            <li className="logo">
-              <Link href='/'>
-                <a><img src="/Light-Logo-2x.png" /></a>
-              </Link>
-            </li>
+      <div id="#large-nav" style={{ margin: "0 20px" }}>
+        <ul className="nav-items">
+          <li className="logo">
+            <Link href="/">
+              <a>
+                <img src="/Light-Logo-2x.png" />
+              </a>
+            </Link>
+          </li>
           <div className="nav-links">
             <div className="nav-left">
-            {links.map(({ path, label, icon}) => (
-              <ActiveLink activeClassName="active" href={path} key={label}>
-                <a className="">
-                  <li key={path}>
-                    <img src={icon} width="40px" height="40px"/>
-                    <span className="label">{label}</span>
+              {links.map(({ path, label, icon }) => (
+                <ActiveLink activeClassName="active" href={path} key={label}>
+                  <a className="">
+                    <li key={path}>
+                      <img src={icon} width="40px" height="40px" />
+                      <span className="label">{label}</span>
+                    </li>
+                  </a>
+                </ActiveLink>
+              ))}
+              {isProductsRoute ? (
+                <a
+                  id="expanded"
+                  className="active"
+                  role="button"
+                  aria-pressed="false"
+                  tabIndex="0"
+                >
+                  <li>
+                    <img src="/explorex2.png" width="40px" height="40px" />
+                    <span className="label">Explore</span>
                   </li>
                 </a>
-              </ActiveLink>
-            ))}
-            {isProductsRoute 
-            ? <a id="expanded" className="active" role='button' aria-pressed="false" tabIndex="0">
-                <li>
-                  <img src="/explorex2.png" width="40px" height="40px"/>
-                  <span className="label">Explore</span>
-                </li>
-              </a>
-            : <a id="expanded" className="" onClick={displayCats} onKeyDown={handleKeyPress} role='button' aria-pressed="false" tabIndex="0">  
-                <li>
-                  <img src="/explorex2.png" width="40px" height="40px"/>
-                  <span className="label">Explore</span>
-                </li>
-              </a>
-            } 
+              ) : (
+                <a
+                  id="expanded"
+                  className=""
+                  onClick={displayCats}
+                  onKeyDown={handleKeyPress}
+                  role="button"
+                  aria-pressed="false"
+                  tabIndex="0"
+                >
+                  <li>
+                    <img src="/explorex2.png" width="40px" height="40px" />
+                    <span className="label">Explore</span>
+                  </li>
+                </a>
+              )}
             </div>
             <div className="nav-right">
               <li className="right">
                 <form className="search">
-                  <span><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span>
-                <input placeholder="Search for anything"></input>
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      width="24"
+                    >
+                      <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                      <path d="M0 0h24v24H0z" fill="none" />
+                    </svg>
+                  </span>
+                  <input placeholder="Search for anything"></input>
                 </form>
               </li>
               {/* <li className="right">
@@ -90,14 +117,11 @@ const Nav = () => {
                 </Link>
               </li> */}
             </div>
-            </div>
-          </ul>
+          </div>
+        </ul>
       </div>
-      {(isShown) ? <Catergory /> : null}
-      <nav id="small-nav">
-
-      </nav>
-      
+      {isShown ? <Catergory /> : null}
+      <nav id="small-nav"></nav>
 
       <style jsx>{`
         :global(body) {
@@ -237,7 +261,7 @@ const Nav = () => {
         }
       `}</style>
     </nav>
-  )
-}
+  );
+};
 
-export default Nav
+export default Nav;

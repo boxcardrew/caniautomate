@@ -10,7 +10,7 @@ handler.use(middleware);
 handler.get (async (req, res) => {
   let { filter } = aqp(req.query, {
     castParams: {
-      price: 'string'
+      price: 'string',
     }
   }
     );
