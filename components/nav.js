@@ -29,6 +29,8 @@ const Nav = () => {
     }
   };
 
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
+
   const links = [
     { path: "/build", label: "Build", icon: "/buildx2.png" },
     { path: "/guides", label: "Guides", icon: "/guidesx2.png" },
@@ -38,7 +40,7 @@ const Nav = () => {
 
   return (
     <nav className="menu">
-      <div id="#large-nav" style={{ margin: "0 20px" }}>
+      <div id="large-nav" style={{ margin: "0 20px" }}>
         <ul className="nav-items">
           <li className="logo">
             <Link href="/">
@@ -121,7 +123,41 @@ const Nav = () => {
         </ul>
       </div>
       {isShown ? <Catergory /> : null}
-      <nav id="small-nav"></nav>
+      <div id="small-nav">
+        <ul>
+          <li>
+            <div className="mobile-logo">
+              <img src="/mobile-logo.png" />
+            </div>
+          </li>
+          <li className="search-mobile">
+            <input type="text" placeholder="Search for anything" />
+          </li>
+          <li>
+            <button className="hamburger" onClick={() => setMenuIsOpen(!menuIsOpen)}>
+              <img src="/hamburger.svg" height="30" width="30" />
+            </button>
+          </li>
+        </ul>
+      </div>
+      {menuIsOpen ? (
+        <div className="mobile-menu">
+          <ul>
+            <li>
+              <img src="/explorex2.png" width="40px" height="40px" />
+              <span className="label">Explore</span>
+            </li>
+            <li>
+              <img src="/explorex2.png" width="40px" height="40px" />
+              <span className="label">Explore</span>
+            </li>
+            <li>
+              <img src="/explorex2.png" width="40px" height="40px" />
+              <span className="label">Explore</span>
+            </li>
+          </ul>
+        </div>
+      ) : null}
 
       <style jsx>{`
         :global(body) {
@@ -238,15 +274,10 @@ const Nav = () => {
           margin-right: 1em;
         }
         @media only screen and (max-width: 1150px) {
-          .search input{
-            display: none;
-          }
-          .search span {
-            display: block;
-          }
+         
         } 
         .search input {
-          padding: 15px 50px;
+          padding: 15px 40px;
           border: none;
           box-shadow: 0px 3px 6px #00000029;
           border-radius: 12px;
@@ -258,6 +289,58 @@ const Nav = () => {
         }
         .search input::placeholder {
           color: #70707081;
+        }
+
+        @media only screen and (max-width: 1150px) {
+          #large-nav {
+            display: none;
+          }
+          #small-nav {
+            display: block;
+          }
+          #small-nav > ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          #small-nav ul > li {
+            display: inline-block;
+            padding: 4px 6px;
+          }
+          .mobile-logo > img {
+            width: 30px;
+            height: auto;
+          }
+          .menu {
+            height: 60px;
+            padding: 8px;
+          }
+          .hamburger {
+            background: none;
+            border: none;
+            padding: 5px 5px 5px 5px;
+          }
+
+          .search-mobile {
+            flex-grow: 2;
+          }
+          .search-mobile > input {
+            width: 90%;
+            max-width: 450px;
+            padding: 8px 15px 8px 40px;
+            border: none;
+            border-radius: 8px;
+            position: relative;
+            background: #f6f6f6 url("/search-24px.svg") center left 8px no-repeat;
+          }
+          .mobile-menu {
+            background: #fff;
+            top: 60px;
+            position: absolute;
+            height: calc(100vh - 60px);
+            width: 100vw;
+          }
         }
       `}</style>
     </nav>

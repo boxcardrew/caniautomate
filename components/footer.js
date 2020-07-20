@@ -108,6 +108,7 @@ return (
       @media only screen and (max-width: 900px) {
         .container {
           display: block;
+          padding: 2em 1em;
         }
         .logo {
           display: inline-block;
