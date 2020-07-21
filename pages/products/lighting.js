@@ -30,9 +30,9 @@ export default function Lighting() {
 
   const endpoint = (isCompatibilityMode) ? 
     (buildParams.hubs.length) ?
-    `http://localhost:3000/api/explore?category=lighting&worksWith.hub=${buildParams.hubs}`
-    : `http://localhost:3000/api/explore?category=lighting&hubRequired=false`
-    : `http://localhost:3000/api/explore?category=lighting`;
+    `/api/explore?category=lighting&worksWith.hub=${buildParams.hubs}`
+    : `/api/explore?category=lighting&hubRequired=false`
+    : `/api/explore?category=lighting`;
   
   console.log(endpoint)
   // console.log(brands)
