@@ -30,6 +30,7 @@ const Nav = () => {
   };
 
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const openStyle = menuIsOpen ? {opacity: '1'} : {opacity: '0', visibility: 'hidden' };
 
   const links = [
     { path: "/build", label: "Build", icon: "/buildx2.png" },
@@ -125,11 +126,13 @@ const Nav = () => {
       {isShown ? <Catergory /> : null}
       <div id="small-nav">
         <ul>
-          <li>
-            <div className="mobile-logo">
-              <img src="/mobile-logo.png" />
-            </div>
-          </li>
+          <Link href="/">
+            <li>
+              <div className="mobile-logo">
+                <img src="/mobile-logo.png" />
+              </div>
+            </li>
+          </Link>
           <li className="search-mobile">
             <input type="text" placeholder="Search for anything" />
           </li>
@@ -140,24 +143,28 @@ const Nav = () => {
           </li>
         </ul>
       </div>
-      {menuIsOpen ? (
-        <div className="mobile-menu">
+        <div className="mobile-menu" style={openStyle}>
           <ul>
-            <li>
-              <img src="/explorex2.png" width="40px" height="40px" />
-              <span className="label">Explore</span>
-            </li>
-            <li>
-              <img src="/explorex2.png" width="40px" height="40px" />
-              <span className="label">Explore</span>
-            </li>
-            <li>
-              <img src="/explorex2.png" width="40px" height="40px" />
-              <span className="label">Explore</span>
-            </li>
+            <Link href="/build">
+              <li>
+                <img src="/buildx2.png" width="40px" height="40px" />
+                <span className="label">Build</span>
+              </li>
+            </Link>
+            <Link href="/guides">
+              <li>
+                <img src="/guidesx2.png" width="40px" height="40px" />
+                <span className="label">Guides</span>
+              </li>
+            </Link>
+            <Link href="/products/hubs">
+              <li>
+                <img src="/explorex2.png" width="40px" height="40px" />
+                <span className="label">Explore</span>
+              </li>
+            </Link>
           </ul>
         </div>
-      ) : null}
 
       <style jsx>{`
         :global(body) {
@@ -340,6 +347,17 @@ const Nav = () => {
             position: absolute;
             height: calc(100vh - 60px);
             width: 100vw;
+            transition: 250ms linear;
+            left: 0;
+          }
+          .mobile-menu > ul {
+            list-style: none;
+          }
+          .mobile-menu > ul > li:first-of-type {
+            margin-top: 60px
+          }
+          .mobile-menu > ul > li {
+            margin: 40px
           }
         }
       `}</style>

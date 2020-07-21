@@ -142,143 +142,6 @@ const Filter = ({ data, queryS, cat }) => {
         )
       ) : ''
     }
-  
-
-    {/* <ul>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Bluetooth
-          <span className="checkmark"></span>
-        </label></li>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Wifi
-          <span className="checkmark"></span>
-        </label></li>
-    </ul>
-    <div className='break'></div>
-    <ul>
-      <li>
-        <label className="container">
-          <input type="checkbox" checked="checked" />Alexa
-          <span className="checkmark"></span>
-        </label>
-      </li>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Google
-          <span className="checkmark"></span>
-        </label></li>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Apple HomeKit
-          <span className="checkmark"></span>
-        </label></li>
-    </ul>
-    <div className='break'></div>
-    <ul>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Zigbee
-          <span className="checkmark"></span>
-        </label></li>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Zigbee
-          <span className="checkmark"></span>
-        </label></li>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Zigbee
-          <span className="checkmark"></span>
-        </label></li>
-    </ul>
-    <div className='break'></div>
-    <ul>
-      <li>
-        <label className="container">
-          <input type="checkbox" checked="checked" />Alexa
-          <span className="checkmark"></span>
-        </label>
-      </li>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Google
-          <span className="checkmark"></span>
-        </label></li>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Apple HomeKit
-          <span className="checkmark"></span>
-        </label></li>
-    </ul>
-    <ul>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Bluetooth
-          <span className="checkmark"></span>
-        </label></li>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Wifi
-          <span className="checkmark"></span>
-        </label></li>
-    </ul>
-    <div className='break'></div>
-    <ul>
-      <li>
-        <label className="container">
-          <input type="checkbox" checked="checked" />Alexa
-          <span className="checkmark"></span>
-        </label>
-      </li>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Google
-          <span className="checkmark"></span>
-        </label></li>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Apple HomeKit
-          <span className="checkmark"></span>
-        </label></li>
-    </ul>
-    <div className='break'></div>
-    <ul>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Zigbee
-          <span className="checkmark"></span>
-        </label></li>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Zigbee
-          <span className="checkmark"></span>
-        </label></li>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Zigbee
-          <span className="checkmark"></span>
-        </label></li>
-    </ul>
-    <div className='break'></div>
-    <ul>
-      <li>
-        <label className="container">
-          <input type="checkbox" checked="checked" />Alexa
-          <span className="checkmark"></span>
-        </label>
-      </li>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Google
-          <span className="checkmark"></span>
-        </label></li>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Apple HomeKit
-          <span className="checkmark"></span>
-        </label></li>
-    </ul>
-    <div className='break'></div>
-    <ul>
-      <li>
-        <label className="container">
-          <input type="checkbox" checked="checked" />Alexa
-          <span className="checkmark"></span>
-        </label>
-      </li>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Google
-          <span className="checkmark"></span>
-        </label></li>
-      <li><label className="container">
-          <input type="checkbox" checked="checked" />Apple HomeKit
-          <span className="checkmark"></span>
-        </label></li>
-    </ul>  */}
 
     <style jsx>
       {`
@@ -311,6 +174,12 @@ const Filter = ({ data, queryS, cat }) => {
         }
         ul li {
           padding: 5px 0;
+        }
+
+        @media only screen and (max-width: 1150px) {
+          .filter-list {
+            display: none;
+          }
         }
       `}
     </style>

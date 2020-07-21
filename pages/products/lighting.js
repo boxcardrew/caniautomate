@@ -25,7 +25,7 @@ export default function Lighting() {
 
   console.log(buildParams)
   
-  const [isCompatibilityMode, setCompatibilityMode] = useState(true);
+  const [isCompatibilityMode, setCompatibilityMode] = useState(false);
 
 
   const endpoint = (isCompatibilityMode) ? 
@@ -77,10 +77,12 @@ export default function Lighting() {
   const { data } = useSWR(endpoint, fetcher, );
   console.log(queryS);
 
+  const buttonTitle = "Lighting & Switches"
+
   return (
     <Layout>
       <div className="main">
-        <Categroy />
+        <Categroy button={buttonTitle}/>
         <div className="hero"></div>
         <Filter data={data} router={query} queryS={queryS} cat={cat} />
         <div className="row">
@@ -99,14 +101,15 @@ export default function Lighting() {
                     </svg>
                   </button>
                   <picture>
-                    <img src={item.image} alt={item.brand} width="182px" />
+                    <img src={item.image} alt={item.brand} />
                   </picture>
 
                   <div className="card-info">
-                    <h3>{item.item}</h3>
+                    <h3>{item.brand}</h3>
+                    <p>{item.item}</p>
                     <div className="card-details">
                       <span className="rating">
-                        {item.rating <= 1 && (
+                        {item.rating >= 1 && (
                           <span>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -177,10 +180,10 @@ export default function Lighting() {
                           </span>
                         )}
                       </span>
-                      <span className="price">
+                      {/* <span className="price">
                         <sup style={{ fontSize: `.75em` }}>$ </sup>
                         {item.price}
-                      </span>
+                      </span> */}
                     </div>
                   </div>
                 </div>
@@ -198,7 +201,18 @@ export default function Lighting() {
           'filter filter'
           'sidebar products'
           'sidebar products'
-          'footer footer' 
+          'footer footer'; 
+      }
+      @media only screen and (max-width: 1150px) {
+        .main {
+          grid-template-rows: 60px 1fr;  
+          grid-template-columns: 1fr;
+          grid-template-areas: 
+          'filter filter'
+          'products products'
+          'products products'
+          'footer footer';
+        }
       }
       position: relative;
       .hero {
@@ -220,20 +234,18 @@ export default function Lighting() {
       .row {
         grid-area: products;
         max-width: 100%;
-        margin: 80px 30px 40px 60px;
+        /* margin: 80px 30px 40px 60px; */
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: flex-start;
-        min-width: 100vh;
       }
       .card {
         position: relative;
         margin: 20px;
-        width: 27%;
-        min-width: 290px;
+        width: 40%;
         max-width: 310px;
-        height: 401px;
+        max-height: 401px;
         text-align: left;
         text-decoration: none;
         color: #fff;
@@ -242,54 +254,66 @@ export default function Lighting() {
         background: #fff;
         display: flex;
         flex-direction: column;
+        align-items: center;
         justify-content: space-between;
         border: none;
+      }
+      @media only screen and (max-width: 1150px) {
+        .card 
       }
       .card:hover {
         box-shadow: 0px 3px 6px #4173c050;
       }
       .card-info {
-        background: transparent linear-gradient(90deg, #4173C0 0%, #5C9AF8 100%) 0% 0%;
-        padding: 20px 20px 10px 20px;
-        height: 27.3%;
+        color: #030303;
+        padding: 4px;
+        align-self: flex-start;
         display: flex;
         flex-direction: column;
       }
       .add {
         position: absolute;
-        top: 16px;
-        right: 16px;
+        bottom: 8px;
+        right: 8px;
         z-index: 1;
         background: none;
         border: none;
         cursor: pointer;
       }
       .add svg {
-        height: 40px;
-        width: 40px;
+        height: 25px;
+        width: 25px;
         fill: #4173C0;
       }
       .card h3 {
         margin: 0;
-        color: #fff;
-        font-size: 16px;
-        margin-bottom: auto;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 0;
       }
       .card p {
         margin: 0;
-        padding: 12px 0 0;
-        font-size: 13px;
+        padding: 0;
+        max-width: 80%;
+        font-size: 12px;
+        font-weight: 300;
         color: #333;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;  
+        overflow: hidden;
       }
       .card picture {
+        width: 30%;
         margin-top: 10%;
+        margin-bottom: 10%;
         display: flex;
         justify-content: center;
         align-items: center;
       }
       .card img {
-        width: 226px;
-        height: 226px;
+        width: 100%;
+        height: auto;
         object-fit: contain;
       }
       .card-details {
@@ -298,7 +322,7 @@ export default function Lighting() {
         align-items: flex-end;
       }
       .rating {
-        margin-right auto;
+        margin: 0;
       }
       .rating span svg {
         fill: #E0C620;

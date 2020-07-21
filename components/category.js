@@ -1,6 +1,6 @@
-import React, { Children, useEffect } from "react";
+import React, { Children, useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter, Router } from "next/router";
 import ActiveLink from "../libs/ActiveLink";
 
 const links = [
@@ -17,7 +17,10 @@ const links = [
   { path: "/products/others", title: "Others", class: "" },
 ];
 
-const Category = () => {
+const Category = ({ button }) => {
+  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+
   useEffect(() => {
     if (window !== undefined) {
       const target = document.getElementById("scrollable");
@@ -36,6 +39,8 @@ const Category = () => {
     }
   }, []);
 
+  const notActiveLink = links.filter((item) => item.path !== router.pathname);
+
   return (
     <div className="filter">
       <ul id="scrollable" className="list">
@@ -47,6 +52,22 @@ const Category = () => {
           </li>
         ))}
       </ul>
+      <button className="select-css" onClick={() => setIsOpen(!isOpen)}>
+        {button}
+      </button>
+      {isOpen ? (
+        <div className="category-select">
+          <ul>
+            {notActiveLink.map(({ path, title }) => (
+              <li key={path} className="mobile-item">
+                <ActiveLink href={path} activeClassName="active">
+                  <a className="">{title}</a>
+                </ActiveLink>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
 
       <style jsx>
         {`
@@ -60,6 +81,53 @@ const Category = () => {
               linear-gradient(90deg, #4173c0 0%, #5c9af8 100%) 0% 0% no-repeat;
             box-shadow: 0px 3px 6px #00000029;
             z-index: 2;
+          }
+          .select-css {
+            display: none;
+          }
+          @media only screen and (max-width: 1150px) {
+            .filter {
+              top: 60px;
+              background: #fff;
+              height: 42px;
+            }
+            #scrollable {
+              display: none;
+            }
+            .select-css {
+              display: inline-block;
+              margin-top: 8px;
+              background: url("/arrow-down.svg") bottom right no-repeat;
+              border: none;
+              padding: 5px 25px 5px 10px;
+              font-size: 1em;
+              color: #5c9af8;
+              font-weight: bold;
+            }
+            .category-select {
+              display: block;
+              background: #fff;
+              color: #1976d2;
+              width: 100%;
+            }
+            .category-select > ul {
+              list-style: none;
+            }
+            .category-select > ul li {
+              padding: 10px 0;
+            }
+            .category-select > ul li:first-of-type {
+              padding-top: 20px;
+            }
+            .category-select > ul a {
+              text-decoration: none;
+              font-size: 1em;
+              color: #1976d2;
+              padding-left: 10px;
+            }
+            .category-select > ul > a {
+              text-decoration: none;
+            }
           }
           .list {
             display: flex;
