@@ -34,11 +34,11 @@ return (
     <div className="container">
       <div className="items">
         <div className="logo">
-          <img src="/Dark-Logo.png" width="120px" height="66px" />
+          <img src="/Dark-Logo.png" width="120px" height="66px" loading="lazy"/>
         </div>
         <ul className="social">
           {socialLinks.map(({ img, alt, href }) => (
-            <li className="social-item" key={'social_' + alt}><a href={href}><img src={img} alt={alt} /></a></li>
+            <li className="social-item" key={'social_' + alt}><a href={href}><img src={img} alt={alt} loading="lazy" /></a></li>
           ))}
         </ul>
         <span>Copyright 2020</span>
@@ -74,7 +74,7 @@ return (
       footer {
         background: #4173C0;
         color: #fff;
-        z-index: 2;
+        z-index: 1;
         position: relative;
       } 
       .container {

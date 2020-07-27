@@ -10,12 +10,17 @@ handler.use(middleware);
 
 
 handler.get (async (req, res) => {
-  
-  let {filter} = aqp(req.query);
+
   console.log(req.query)
-  let products = await req.db.collection('products').find(filter);
-  // console.log(filter);
-  res.json(products);
+  
+  let { filter } = aqp(req.query, {
+    castParams: {
+      productId: 'string'
+    }
+  }
+    );
+  let products = await req.db.collection('products').find(filter).toArray();
+  await res.json(products);
   // console.log(products);
   }  
 );

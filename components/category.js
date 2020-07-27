@@ -75,6 +75,7 @@ const Category = ({ button }) => {
             grid-area: filter;
             position: fixed;
             top: 110px;
+            left: 0;
             width: 100vw;
             height: 80px;
             background: transparent
@@ -87,6 +88,7 @@ const Category = ({ button }) => {
           }
           @media only screen and (max-width: 1150px) {
             .filter {
+              grid-area: filter;
               top: 60px;
               background: #fff;
               height: 42px;
@@ -169,7 +171,7 @@ const Category = ({ button }) => {
             background: #f6f6f6;
             height: 4px;
             width: 110%;
-            bottom: -20px;
+            bottom: -10px;
             left: -4%;
           }
         `}

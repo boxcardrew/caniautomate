@@ -258,6 +258,9 @@ const Build = () => {
           td {
             padding: 0px;
           }
+          table caption {
+            font-size: 24px;
+          }
           .tr_headers {
             display: none;
           }

@@ -79,7 +79,7 @@ const BuildSection = ({ title, category, data, remove }) => (
               </button>
               <button
                 className="btn secondary"
-                onClick={() => removeItem(productId)}
+                onClick={() => remove(productId)}
               >
                 Remove
               </button>
@@ -155,7 +155,9 @@ tbody {
 span {
   vertical-align: middle;
 }
-
+.td_add span:last-of-type {
+    padding-left: 8px;
+  }
 .td_where svg {
   vertical-align: middle;
   position: absolute;
@@ -263,7 +265,10 @@ span {
     padding-left: 0;
     padding-right: 0;
   }
-
+  table caption {
+    font-size: 24px;
+    padding: 10px .5em;
+  }
   td {
     padding: 0px;
   }
@@ -408,6 +413,7 @@ span {
     color: #4173c0;
     font-weight: bold;
   }
+  
   .btn.secondary.large {
     display: none;
   }

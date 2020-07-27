@@ -352,6 +352,8 @@ const Nav = () => {
           }
           .mobile-menu > ul {
             list-style: none;
+            height: 100vh;
+            padding-top: 43px;
           }
           .mobile-menu > ul > li:first-of-type {
             margin-top: 60px
