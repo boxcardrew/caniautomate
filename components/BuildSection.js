@@ -22,6 +22,8 @@ const BuildSection = ({ title, category, data, remove }) => (
         <th>MSRP</th>
         <th>Price</th>
         <th>Where</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
       </tr>
       {data
         .filter((item) => item.category === category)
@@ -109,6 +111,9 @@ const BuildSection = ({ title, category, data, remove }) => (
   </table>
 
 <style jsx>{`
+:global(:root) {
+  --shadow: 0px 3px 6px rgba(0,0,0,.16); 
+}  
 :global(body) {
   background: #fff;
 }
@@ -147,10 +152,10 @@ table caption {
 }
 
 tbody {
-  -webkit-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  /*-webkit-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);*/
+  box-shadow: var(--shadow); 
   border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.01);
+  /*border: 1px solid rgba(0, 0, 0, 0.25);*/
 }
 
 .td_add svg,
