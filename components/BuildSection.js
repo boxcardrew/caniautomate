@@ -152,6 +152,7 @@ table caption {
 }
 
 tbody {
+  
   /*-webkit-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);*/
   box-shadow: var(--shadow); 
   border-radius: 4px;
@@ -278,6 +279,9 @@ span {
   }
   td {
     padding: 0px;
+  }
+  tbody {
+    display: block;
   }
   .tr_headers {
     display: none;
