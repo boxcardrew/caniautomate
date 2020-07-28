@@ -77,7 +77,7 @@ export default function Lighting() {
         <div className="row">
           {data ? (
             data.map((item) => (
-              <Card item={item} addFunc={addProduct} key={item.productId}/> 
+              <Card item={item} addFunc={addProduct} key={item.productId} />
             ))
           ) : (
             <>

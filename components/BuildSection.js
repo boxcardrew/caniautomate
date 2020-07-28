@@ -147,6 +147,7 @@ table caption {
 }
 
 tbody {
+  -webkit-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   border-radius: 4px;
 }
@@ -292,7 +293,7 @@ span {
 
   .tr_product::after {
     content: "";
-    background: #00000020;
+    background: rgba(0, 0, 0, 0.16);
     height: 2px;
     width: 95%;
     position: absolute;
@@ -302,7 +303,7 @@ span {
 
   .tr_product:last-of-type::after {
     content: "";
-    background: #00000020;
+    background: rgba(0, 0, 0, 0.16);
     height: 0px;
     width: 95%;
     position: absolute;

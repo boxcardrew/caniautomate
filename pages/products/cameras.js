@@ -34,7 +34,7 @@ export default function Products() {
   const { query } = useRouter();
   const { brand, price, rating } = query;
   let parsedQuery = URL;
-  let cat = "hubs";
+  let cat = "cameras";
   let queryS = queryString.stringify(query, {
     arrayFormat: "comma",
   });

@@ -1,6 +1,5 @@
-import React, { Children, useEffect, useState } from "react";
-import Link from "next/link";
-import { useRouter, Router } from "next/router";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import ActiveLink from "../libs/ActiveLink";
 
 const links = [

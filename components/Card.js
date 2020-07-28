@@ -103,7 +103,7 @@ export const Card = ({ item, addFunc }) => (
         text-decoration: none;
         color: #fff;
         border-radius: 4px;
-        box-shadow: 0px 3px 6px #00000029;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
         background: #fff;
         display: flex;
         flex-direction: column;
@@ -112,7 +112,7 @@ export const Card = ({ item, addFunc }) => (
         border: none;
       }
       .card:hover {
-        box-shadow: 0px 3px 6px #4173c050;
+        box-shadow: 0px 3px 6px rgba(65,115,192,.25);
       }
       .card-info {
         color: #030303;
@@ -155,16 +155,26 @@ export const Card = ({ item, addFunc }) => (
         overflow: hidden;
       }
       .img-container {
-        width: 33%;
-        min-height: 140px;
-        height: 100%;
+        width: 240px;
+        height: 240px;
         display: grid;
         place-items: center;
       }
       img {
-        width: 100%;
-        max-height: 200px;
+        height: 8rem;
+        width: 8rem;
         object-fit: contain;
+      }
+      @media only screen and (max-width: 1150px) {
+        .img-container {
+          width: 8rem;
+          height: 8rem;
+        }
+      img {
+        height: 6rem;
+        width: 6rem;
+        object-fit: contain;
+      }
       }
       .card-details {
         margin-top: auto;

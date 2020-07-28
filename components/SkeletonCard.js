@@ -27,7 +27,7 @@ export const Skeleton = () => (
         width: 100%;
         height: 100%;
         border-radius: 4px;
-        box-shadow: 0px 3px 6px #00000029;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
         background-image: linear-gradient(90deg, #fff, #f6f6f6, #fff);
 
         background-size: 200px 320px;
