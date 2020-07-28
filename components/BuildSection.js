@@ -150,6 +150,7 @@ tbody {
   -webkit-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.01);
 }
 
 .td_add svg,
