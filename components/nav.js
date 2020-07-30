@@ -46,7 +46,7 @@ const Nav = () => {
           <li className="logo">
             <Link href="/">
               <a>
-                <img src="/Light-Logo-2x.png" />
+                <img src="/Light-Logo-2x.png" alt="Can I Automate Logo" />
               </a>
             </Link>
           </li>
