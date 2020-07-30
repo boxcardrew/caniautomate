@@ -126,19 +126,19 @@ const Nav = () => {
       {isShown ? <Catergory /> : null}
       <div id="small-nav">
         <ul>
-          <Link href="/">
+          <Link href="/" >
             <li>
               <div className="mobile-logo">
-                <img src="/mobile-logo.png" />
+                <img src="/mobile-logo.png" alt="Can I Automate Logo" />
               </div>
             </li>
           </Link>
           <li className="search-mobile">
-            <input type="text" placeholder="Search for anything" />
+            <input type="text" placeholder="Search for anything" aria-label="Search Products" />
           </li>
           <li>
-            <button className="hamburger" onClick={() => setMenuIsOpen(!menuIsOpen)}>
-              <img src="/hamburger.svg" height="30" width="30" />
+            <button className="hamburger" onClick={() => setMenuIsOpen(!menuIsOpen)} aria-label="Menu" >
+              <img src="/hamburger.svg" height="30" width="30" alt="menu" />
             </button>
           </li>
         </ul>

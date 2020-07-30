@@ -34,7 +34,7 @@ return (
     <div className="container">
       <div className="items">
         <div className="logo">
-          <img src="/Dark-Logo.png" width="120px" height="66px" loading="lazy"/>
+          <img src="/Dark-Logo.png" width="120px" height="66px" loading="lazy" alt="Can I Automate Logo" />
         </div>
         <ul className="social">
           {socialLinks.map(({ img, alt, href }) => (

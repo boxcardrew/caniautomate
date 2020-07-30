@@ -39,12 +39,16 @@ const Filter = ({ data, queryS, cat }) => {
         conjunction: false,
         size: 10
       },
-      price: {
-        title: 'Price',
+      MSRP: {
+        title: 'MSRP',
         size: 10
       },
       rating: {
         title: 'Rating',
+        size: 10
+      },
+      hubRequired: {
+        title: 'Hub Required',
         size: 10
       }
     },

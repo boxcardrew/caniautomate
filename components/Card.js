@@ -12,7 +12,7 @@ export const Card = ({ item, addFunc }) => (
       </svg>
     </button>
     <div className="img-container">
-      <img src={item.image} alt={item.brand} />
+      <img src={item.image} alt={item.brand} loading="lazy" />
     </div>
 
     <div className="card-info">

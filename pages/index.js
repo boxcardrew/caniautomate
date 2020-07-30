@@ -70,12 +70,12 @@ const Home = () => {
                 Explore compatible products for your home
               </h3>
               <p>We only show you products that work with your Smart Home</p>
-              <Link href="/products">
+              <Link href="/products/hubs">
                 <a className="btn light">Explore Now</a>
               </Link>
             </div>
             <div className="explore-right">
-              <img src="/home@2x.png"></img>
+              <img src="/home@2x.png" alt="smart home"></img>
             </div>
           </section>
           <section className="brands">
@@ -100,7 +100,7 @@ const Home = () => {
                 Everything from quick start guides to fully automated homes, and
                 everything between.
               </p>
-              <Link href="/products">
+              <Link href="/guides">
                 <a className="btn">Find Guides</a>
               </Link>
             </div>

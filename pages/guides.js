@@ -3,6 +3,7 @@ import Layout from "../components/layout";
 import { GuideCard } from "../components/guideCard";
 
 const Guides = () => {
+  const haveGuides = false;
   return (
     <div>
       <Head>
@@ -10,49 +11,76 @@ const Guides = () => {
       </Head>
       <Layout>
         <div className="main">
-          <div className="search">
-            <form onSubmit={() => alert("Search")}>
-              <input type="text" className="search-guides" placeholder="Search Guides"/>
-            </form>
-          </div>
-          <section>
-            <h3>Featured Guides</h3>
-            <div className="cards">
-              <div className="card">
-                <GuideCard />
-              </div>
-              <div className="card">
-                <GuideCard />
-              </div>
-              <div className="card">
-                <GuideCard />
+          {!haveGuides ? (
+            <div className="coming-soon">
+              <div>
+              <h2>We're currently working on guides.</h2>
+              <h4>Check back soon.</h4>
               </div>
             </div>
-          </section>
-          <section>
-            <h3>Popular Guides</h3>
-            <div className="cards">
-              <div className="card">
-                <GuideCard />
+          ) : (
+            <>
+              <div className="search">
+                <form onSubmit={() => alert("Search")}>
+                  <input
+                    type="text"
+                    className="search-guides"
+                    placeholder="Search Guides"
+                  />
+                </form>
               </div>
-              <div className="card">
-                <GuideCard />
-              </div>
-              <div className="card">
-                <GuideCard />
-              </div>
-            </div>
-          </section>
+              <section>
+                <h3>Featured Guides</h3>
+                <div className="cards">
+                  <div className="card">
+                    <GuideCard />
+                  </div>
+                  <div className="card">
+                    <GuideCard />
+                  </div>
+                  <div className="card">
+                    <GuideCard />
+                  </div>
+                </div>
+              </section>
+              <section>
+                <h3>Popular Guides</h3>
+                <div className="cards">
+                  <div className="card">
+                    <GuideCard />
+                  </div>
+                  <div className="card">
+                    <GuideCard />
+                  </div>
+                  <div className="card">
+                    <GuideCard />
+                  </div>
+                </div>
+              </section>
+            </>
+          )}
         </div>
       </Layout>
       <style jsx>{`
-        .main {
-          max-width: 1300px;
-          margin: 2rem auto;
-          display: flex;
-          align-items: center;
-          flex-direction: column;
-        }
+      .main {
+        max-width: 1300px;
+        margin: 2rem auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+      .coming-soon {
+        display: grid;
+        height: 800px;
+        width: 100%;
+        place-items: center;
+      }
+      .coming-soon > div {
+        text-align: center;
+      }
+      .coming-soon h2 {
+        margin-bottom: 2rem;
+      }
         .search {
           display: flex;
           align-items: center;
