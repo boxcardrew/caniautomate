@@ -127,6 +127,14 @@ export default function Lighting() {
           'sidebar products'
           'footer footer'; 
       }
+      .hero {
+        width: 100%;
+        color: #333;
+        grid-area: header;
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+      }
       @media only screen and (max-width: 1150px) {
         .main {
           grid-template-rows: 60px 80px 1fr;  
@@ -138,19 +146,10 @@ export default function Lighting() {
           'footer footer';
         }
         .hero {
-          display:none;
+          display: none;
         }
       }
       
-      }
-      .hero {
-        width: 100%;
-        color: #333;
-        grid-area: header;
-        display: grid;
-        place-items: center;
-        font-weight: 700;
-      }
       .title {
         margin: 0;
         width: 100%;
