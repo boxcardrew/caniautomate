@@ -10,7 +10,7 @@ import {
   getQueryParams,
   setQueryParams,
 } from "../components/build-context";
-import BuildSection from "../components/BuildSection"
+import BuildSection from "../components/BuildSection";
 
 import { parseCookies } from "../libs/cookies";
 
@@ -86,14 +86,59 @@ const Build = () => {
         ) : (
           <div className="main">
             <div>
-              <BuildSection title="Hubs & Bridges" category="hubs" data={newData.filter(item => item.category === 'hubs')} remove={removeItem} />
-              <BuildSection title="Lighting" category="lighting" data={newData.filter(item => item.category === 'lighting')} remove={removeItem} />
-              <BuildSection title="Plugs & Outlets" category="plugs" data={newData.filter(item => item.category === 'plugs')} remove={removeItem}  />
-              <BuildSection title="Speakers & Displays" category="speakers" data={newData.filter(item => item.category === 'speakers')} remove={removeItem}  />
-              <BuildSection title="Thermostats" category="thermostats" data={newData.filter(item => item.category === 'thermostats')} remove={removeItem}  />
-              <BuildSection title="Cameras & Doorbells" category="cameras" data={newData.filter(item => item.category === 'cameras')} remove={removeItem} />
-              <BuildSection title="Locks & Security" category="locks" data={newData.filter(item => item.category === 'locks')} remove={removeItem} />
-              <BuildSection title="Network & Wifi" category="network-wifi" data={newData.filter(item => item.category === 'network-wifi')} remove={removeItem} />
+              <BuildSection
+                title="Hubs & Bridges"
+                category="hubs"
+                data={newData.filter(
+                  (item) =>
+                    item.category === "hubs" || item.category.includes("hubs")
+                )}
+                remove={removeItem}
+              />
+              <BuildSection
+                title="Lighting"
+                category="lighting"
+                data={newData.filter((item) => item.category === "lighting")}
+                remove={removeItem}
+              />
+              <BuildSection
+                title="Plugs & Outlets"
+                category="plugs"
+                data={newData.filter((item) => item.category === "plugs")}
+                remove={removeItem}
+              />
+              <BuildSection
+                title="Speakers & Displays"
+                category="speakers"
+                data={newData.filter((item) => item.category.includes('speakers'))}
+                remove={removeItem}
+              />
+              <BuildSection
+                title="Thermostats"
+                category="thermostats"
+                data={newData.filter((item) => item.category === "thermostats")}
+                remove={removeItem}
+              />
+              <BuildSection
+                title="Cameras & Doorbells"
+                category="cameras"
+                data={newData.filter((item) => item.category === "cameras")}
+                remove={removeItem}
+              />
+              <BuildSection
+                title="Locks & Security"
+                category="locks"
+                data={newData.filter((item) => item.category === "locks")}
+                remove={removeItem}
+              />
+              <BuildSection
+                title="Network & Wifi"
+                category="network-wifi"
+                data={newData.filter(
+                  (item) => item.category === "network-wifi"
+                )}
+                remove={removeItem}
+              />
             </div>
           </div>
         )}
@@ -410,8 +455,6 @@ const Build = () => {
     </div>
   );
 };
-
-
 
 // Build.getInitialProps = ({ req }) => {
 //   const cookies = parseCookies(req);

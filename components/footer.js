@@ -16,13 +16,13 @@ import Link from "next/link"
   const infoLinks = [
     {href: '/information#affiliate', text: 'Affiliate Disclosure', cat: 'info'},
     {href: '/information#privacy', text: 'Privacy Policy', cat: 'info'},
-    {href: '/information#advertise', text: 'Advertise With Us', cat: 'info'},
     {href: '/information#donotsell', text: 'Do Not Sell My Personal Information', cat: 'info'},
   ]
-
+  
   const aboutLinks = [
     {href: '/about#about', text: 'About', cat: 'about'},
     {href: '/about#contact', text: 'Contact', cat: 'about'},
+    {href: '/information#advertise', text: 'Advertise With Us', cat: 'about'},
   ]
 
 
@@ -41,7 +41,6 @@ return (
             <li className="social-item" key={'social_' + alt}><a href={href}><img src={img} alt={alt} loading="lazy" /></a></li>
           ))}
         </ul>
-        <span>Copyright 2020</span>
       </div>
       <div className="items">
         <h6>Browse</h6>
@@ -67,6 +66,9 @@ return (
           ))}
         </ul>
       </div>
+    </div>
+    <div style={{ alignSelf: "center" }}>
+        <span>©2020</span>
     </div>
 
     <style jsx>{`

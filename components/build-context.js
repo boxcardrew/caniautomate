@@ -4,7 +4,7 @@ import fetcher from "../libs/fetcher";
 
 const setListCookie = (list) => {
   Cookie.remove("list");
-  Cookie.set("list", list);
+  Cookie.set("list", list, {expires: 365});
 };
 
 const getListCookie = () => {

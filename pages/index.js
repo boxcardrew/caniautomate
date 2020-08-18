@@ -43,7 +43,7 @@ const Home = () => {
     }, 75);
   }
   if (isMounted) {
-    getInitialQueryParams()
+    getInitialQueryParams();
   }
 
   return (
@@ -55,10 +55,9 @@ const Home = () => {
       <Layout>
         <div className="main">
           <section className="hero">
-            <h1 className="title">Find out what you can Automate</h1>
+            <h1 className="title">The smart way to build your smart home.</h1>
             <h4 className="subtitle">
-              You can find light bulbs, switches, vacuums, sprinklers, cameras,
-              and more.
+              We take the guess work out of home automation.
             </h4>
             <Link href="/build">
               <a className="btn">Build Now</a>
@@ -67,7 +66,7 @@ const Home = () => {
           <section className="explore">
             <div className="explore-heading">
               <h3 className="subtitle">
-                Explore compatible products for your home
+              <span className="blue">Explore compatible products for your home</span> 
               </h3>
               <p>We only show you products that work with your Smart Home</p>
               <Link href="/products/hubs">
@@ -111,12 +110,15 @@ const Home = () => {
       <style jsx>{`
 
         :global(body) {
-          line-height: 1.65;  
+        
         }
         :global(*) {
           box-sizing: border-box;
           margin: 0;
           padding: 0;
+        }
+        .blue {
+          color: #4173c0;
         }
         .main {
           width: 100%;
@@ -175,9 +177,9 @@ const Home = () => {
 
         .hero .subtitle {
           font-size: calc(1.25rem + .75vw);
-          font-weight: 400;
+          font-weight: 600;
           margin-bottom: 1em;
-          max-width: 650px;
+          max-width: 600px;
           text-align: center;
         }
         @media only screen and (max-width: 851px) {

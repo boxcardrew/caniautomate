@@ -124,7 +124,7 @@ export const Card = ({ item, addFunc }) => (
       }
       .add {
         position: absolute;
-        bottom: 8px;
+        bottom: 4px;
         right: 8px;
         z-index: 1;
         background: none;

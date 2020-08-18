@@ -12,6 +12,7 @@ import {
   setListCookie,
   useListState,
   getQueryParams,
+  getInitialQueryParams,
 } from "../../components/build-context";
 import { Skeleton } from "../../components/SkeletonCard";
 import { Card } from "../../components/Card";
@@ -23,25 +24,27 @@ export default function Lighting() {
 
   console.log(buildParams);
 
-  const [isCompatibilityMode, setCompatibilityMode] = useState(false);
+  const [isCompatibilityMode, setCompatibilityMode] = useState(true);
 
-  let endpoint = isCompatibilityMode
-    ? buildParams.hubs.length
-      ? `/api/explore?category=lighting&worksWith.hub=${buildParams.hubs}`
-      : `/api/explore?category=lighting&hubRequired=false`
-    : `/api/explore?category=lighting`;
+  let endpoint = () => {
+    getInitialQueryParams();
+    return isCompatibilityMode
+        ? buildParams.hubs.length
+          ? `/api/explore?category=lighting&worksWith.hub=${buildParams.hubs}`
+          : `/api/explore?category=lighting&hubRequired=false`
+        : `/api/explore?category=lighting`;    
+  } 
 
-  console.log(endpoint);
   const { router } = useRouter();
   const { query } = useRouter();
-  const { brand, price, rating } = query;
+  const { brand, price, rating, hubRequired } = query;
   let parsedQuery = URL;
   let cat = "lighting";
   let queryS = queryString.stringify(query, {
     arrayFormat: "comma",
   });
   console.log(query);
-  if (brand || price || rating) {
+  if (brand || price || rating || hubRequired) {
     endpoint = endpoint + "&" + queryS;
   }
 
@@ -68,12 +71,36 @@ export default function Lighting() {
 
   const buttonTitle = "Lighting & Switches";
 
+  const compatibilityMode = () => {
+    setCompatibilityMode(!isCompatibilityMode);
+  };
+
   return (
     <Layout>
       <div className="main">
         <Categroy button={buttonTitle} />
-        <div className="hero"></div>
-        <Filter data={data} router={query} queryS={queryS} cat={cat} />
+        <Filter
+          data={data}
+          router={query}
+          queryS={queryS}
+          cat={cat}
+          compatMode={compatibilityMode}
+          isCompatibilityMode={isCompatibilityMode}
+        />
+          <div className="hero">
+            {isCompatibilityMode ? (
+              <>
+                {" "}
+                Currently showing products that work with work with your build.{" "}To see all products turn off Compatibility Mode.{" "}
+              </>
+            ) : (
+              <>
+                {" "}
+                Currently showing all products. To only see compatibile
+                products, turn on Compatibility Mode.{" "}
+              </>
+            )}{" "}
+          </div>
         <div className="row">
           {data ? (
             data.map((item) => (
@@ -88,28 +115,30 @@ export default function Lighting() {
             </>
           )}
         </div>
-        <div className="footer">_____</div>
 
         <style jsx>{`
       .main {
         display: grid;
-        grid-template-rows: 80px 1fr;
+        grid-template-rows: 80px 80px 1fr;
         grid-template-columns: 250px 1fr;
         grid-template-areas: 
           'filter filter'
-          'sidebar products'
+          'sidebar header'
           'sidebar products'
           'footer footer'; 
       }
       @media only screen and (max-width: 1150px) {
         .main {
-          grid-template-rows: 60px 1fr;  
+          grid-template-rows: 60px 80px 1fr;  
           grid-template-columns: 1fr;
           grid-template-areas: 
           'filter filter'
-          'products products'
+          'sidebar sidebar'
           'products products'
           'footer footer';
+        }
+        .hero {
+          display:none;
         }
       }
       
@@ -118,6 +147,9 @@ export default function Lighting() {
         width: 100%;
         color: #333;
         grid-area: header;
+        display: grid;
+        place-items: center;
+        font-weight: 700;
       }
       .title {
         margin: 0;
@@ -144,7 +176,7 @@ export default function Lighting() {
       }
       @media only screen and (min-width: 1151px) {
         .row {
-          margin: 2em 3em 20em 3em;
+          margin: 0em 3em 20em 3em;
           max-width: 100%;
           justify-content: flex-start;
         }

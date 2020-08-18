@@ -80,7 +80,7 @@ const Category = ({ button }) => {
             background: transparent
               linear-gradient(90deg, #4173c0 0%, #5c9af8 100%) 0% 0% no-repeat;
             box-shadow: 0px 3px 6px #00000029;
-            z-index: 2;
+            z-index: 3;
           }
           .select-css {
             display: none;

@@ -26,10 +26,9 @@ const BuildSection = ({ title, category, data, remove }) => (
           <th>&nbsp;</th>
         </tr>
         {data
-          .filter((item) => item.category === category)
           .map(
             ({ brand, image, item, MSRP, price, where, link, productId }) => (
-              <tr className="tr_product" id="toggle">
+              <tr className="tr_product" id="toggle" key={productId}>
                 <td className="td_image">
                   <img src={image} height="63px" width="auto" />
                 </td>
@@ -59,7 +58,7 @@ const BuildSection = ({ title, category, data, remove }) => (
                 </td>
                 <td className="td_buy">
                   <a href={link} className="btn primary" target="_blank">
-                    Buy
+                    Check Price
                   </a>
                 </td>
                 <td className="td_remove">
@@ -91,8 +90,9 @@ const BuildSection = ({ title, category, data, remove }) => (
             )
           )}
         <tr className="tr_product">
-          <Link href={`products/${category}`}>
-            <td className="td_add" colSpan="10" role="link" tabIndex="0" aria-label={"add " + category} >
+            <td className="td_add" colSpan="10" aria-label={"add " + category} >
+          <Link href={`products/${category}`} >
+            <a className="add-link">
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -106,8 +106,9 @@ const BuildSection = ({ title, category, data, remove }) => (
                 </svg>
               </span>
               <span>Add Item</span>
-            </td>
+            </a>
           </Link>
+            </td>
         </tr>
       </tbody>
     </table>
@@ -160,6 +161,12 @@ const BuildSection = ({ title, category, data, remove }) => (
           border-radius: 4px;
           /*border: 1px solid rgba(0, 0, 0, 0.25);*/
         }
+        .add-link {
+          text-decoration: none;
+          width: 100%;
+          color: #1976d2;
+          display: block;
+        }
 
         .td_add svg,
         span {
@@ -178,8 +185,8 @@ const BuildSection = ({ title, category, data, remove }) => (
           color: #f1f1f1;
           text-align: center;
           font-weight: 700;
-          padding: 0px 20px;
-          font-size: 15px;
+          padding: 2px 12px;
+          font-size: 12px;
           border-radius: 4px;
           background: #4173c0;
           box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
@@ -211,8 +218,8 @@ const BuildSection = ({ title, category, data, remove }) => (
           }
 
           .td_buy,
-          td_remove {
-            padding: 10px 10px;
+          .td_remove {
+            padding: 5px;
           }
           .col-desc {
             width: 40%;
@@ -247,9 +254,10 @@ const BuildSection = ({ title, category, data, remove }) => (
           .td_image {
             width: 20px;
             padding-left: 20px;
+            text-align: center;
           }
 
-          .td_add {
+          .td_add{
             text-align: center;
             color: #4173c0;
             font-weight: 700;
@@ -421,7 +429,7 @@ const BuildSection = ({ title, category, data, remove }) => (
             color: #d9534f;
           }
 
-          .td_add {
+          .td_add, .add-link {
             grid-column: 1 / span 4;
             cursor: pointer;
           }
