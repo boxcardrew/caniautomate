@@ -2,7 +2,6 @@ import { useRef, useEffect, useState } from "react";
 import Head from "next/head";
 import Layout from "../components/layout";
 import Link from "next/link";
-import useOnScreen from "../libs/useOnScreen";
 import { getInitialQueryParams } from "../components/build-context";
 import { GuideCard } from "../components/guideCard";
 

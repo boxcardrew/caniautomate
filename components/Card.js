@@ -95,20 +95,16 @@ export const Card = ({ item, addFunc }) => (
     <style jsx>{`
       .card {
         position: relative;
-        margin: 0.875em;
-        width: 40%;
-        max-width: 310px;
+        margin: .5rem;
+        flex: 0 1 calc(15% - .35rem);
         max-height: 363px;
         text-align: left;
         text-decoration: none;
-        color: #fff;
         border-radius: 4px;
         box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
         background: #fff;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
         border: none;
       }
       .card:hover {
@@ -169,6 +165,10 @@ export const Card = ({ item, addFunc }) => (
         .img-container {
           width: 8rem;
           height: 8rem;
+        }
+        .card {
+          flex: 0 1 calc(40%);
+          max-width: 200px;
         }
       img {
         height: 6rem;

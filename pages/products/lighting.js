@@ -57,7 +57,7 @@ export default function Lighting() {
       type: "add",
       payload: item.productId,
     });
-    Router.push("/build");
+    Router.push("/build").then(() => window.scrollTo(0, 0));
   };
 
   /* Cookies Options, available server side */
@@ -120,7 +120,7 @@ export default function Lighting() {
       .main {
         display: grid;
         grid-template-rows: 80px 80px 1fr;
-        grid-template-columns: 250px 1fr;
+        grid-template-columns: 300px 1fr;
         grid-template-areas: 
           'filter filter'
           'sidebar header'
@@ -170,8 +170,13 @@ export default function Lighting() {
         flex-wrap: wrap;
         margin-left: auto;
         margin-right: auto;
-        justify-content: space-between;
+        justify-content: space-around;
         margin-bottom: 200px;
+      }
+      .row::after {
+        content: "";
+        flex: 0 1 calc(40%);
+        margin: .5rem;
       }
       @media only screen and (min-width: 1151px) {
         .row {

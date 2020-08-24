@@ -26,7 +26,7 @@ export default function Hubs() {
   const [isCompatibilityMode, setCompatibilityMode] = useState(false);
 
   let endpoint = isCompatibilityMode
-      ? `/api/explore?category=hubs`
+    ? `/api/explore?category=hubs`
     : `/api/explore?category=hubs`;
 
   console.log(endpoint);
@@ -75,7 +75,7 @@ export default function Hubs() {
         <div className="row">
           {data ? (
             data.map((item) => (
-              <Card item={item} addFunc={addProduct} key={item.productId}/> 
+              <Card item={item} addFunc={addProduct} key={item.productId} />
             ))
           ) : (
             <>
@@ -89,66 +89,70 @@ export default function Hubs() {
         <div className="footer">_____</div>
 
         <style jsx>{`
-      .main {
-        display: grid;
-        grid-template-rows: 80px 1fr;
-        grid-template-columns: 250px 1fr;
-        grid-template-areas: 
-          'filter filter'
-          'sidebar products'
-          'sidebar products'
-          'footer footer'; 
-      }
-      @media only screen and (max-width: 1150px) {
-        .main {
-          grid-template-rows: 60px 1fr;  
-          grid-template-columns: 1fr;
-          grid-template-areas: 
-          'filter filter'
-          'products products'
-          'products products'
-          'footer footer';
-        }
-      }
-      
-      }
-      .hero {
-        width: 100%;
-        color: #333;
-        grid-area: header;
-      }
-      .title {
-        margin: 0;
-        width: 100%;
-        padding-top: 40px;
-        line-height: 1.15;
-        font-size: 48px;
-      }
-      .title,
-      .description {
-        text-align: center;
-      }
-      .row {
-        grid-area: products;
-        max-width: 680px;
-        width: 90%;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        margin-left: auto;
-        margin-right: auto;
-        justify-content: space-between;
-        margin-bottom: 200px;
-      }
-      @media only screen and (min-width: 1151px) {
-        .row {
-          margin: 2em 3em 20em 3em;
-          max-width: 100%;
-          justify-content: flex-start;
-        }
-    }
+          .main {
+            display: grid;
+            grid-template-rows: 80px 80px 1fr;
+            grid-template-columns: 250px 1fr;
+            grid-template-areas:
+              "filter filter"
+              "sidebar header"
+              "sidebar products"
+              "footer footer";
+          }
+          .hero {
+            width: 100%;
+            color: #333;
+            grid-area: header;
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+          }
+          @media only screen and (max-width: 1150px) {
+            .main {
+              grid-template-rows: 60px 80px 1fr;
+              grid-template-columns: 1fr;
+              grid-template-areas:
+                "filter filter"
+                "sidebar sidebar"
+                "products products"
+                "footer footer";
+            }
+            .hero {
+              display: none;
+            }
+          }
 
-    `}</style>
+          .title {
+            margin: 0;
+            width: 100%;
+            padding-top: 40px;
+            line-height: 1.15;
+            font-size: 48px;
+          }
+          .title,
+          .description {
+            text-align: center;
+          }
+          .row {
+            grid-area: products;
+            max-width: 680px;
+            width: 90%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            margin-left: auto;
+            margin-right: auto;
+            justify-content: space-between;
+            margin-bottom: 200px;
+          }
+          @media only screen and (min-width: 1151px) {
+            .row {
+              margin: 0em 3em 20em 3em;
+              max-width: 100%;
+              justify-content: flex-start;
+            }
+          }
+        `}</style>
       </div>
     </Layout>
   );
