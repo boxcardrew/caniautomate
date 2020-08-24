@@ -34,7 +34,7 @@ export default function Lighting() {
           : `/api/explore?category=lighting&hubRequired=false`
         : `/api/explore?category=lighting`;    
   } 
-
+  console.log(endpoint)
   const { router } = useRouter();
   const { query } = useRouter();
   const { brand, price, rating, hubRequired } = query;
@@ -45,7 +45,7 @@ export default function Lighting() {
   });
   console.log(query);
   if (brand || price || rating || hubRequired) {
-    endpoint = endpoint + "&" + queryS;
+    endpoint = endpoint() + "&" + queryS;
   }
 
   /*****List Context ******/
@@ -177,6 +177,7 @@ export default function Lighting() {
         content: "";
         flex: 0 1 calc(40%);
         margin: .5rem;
+        max-width: 400px;
       }
       @media only screen and (min-width: 1151px) {
         .row {
