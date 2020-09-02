@@ -17,24 +17,19 @@ import {
 import { Skeleton } from "../../components/SkeletonCard";
 import { Card } from "../../components/Card";
 
-let URL = `http://localhost:3000/api/explore?category=lighting`;
-
 export default function Lighting() {
   const buildParams = getQueryParams();
-
-  console.log(buildParams);
 
   const [isCompatibilityMode, setCompatibilityMode] = useState(true);
 
   let endpoint = () => {
     getInitialQueryParams();
     return isCompatibilityMode
-        ? buildParams.hubs.length
-          ? `/api/explore?category=lighting&worksWith.hub=${buildParams.hubs}`
-          : `/api/explore?category=lighting&hubRequired=false`
-        : `/api/explore?category=lighting`;    
-  } 
-  console.log(endpoint)
+      ? buildParams.hubs.length
+        ? `/api/explore?category=lighting&worksWith.hub=${buildParams.hubs}`
+        : `/api/explore?category=lighting&hubRequired=false`
+      : `/api/explore?category=lighting`;
+  };
   const { router } = useRouter();
   const { query } = useRouter();
   const { brand, price, rating, hubRequired } = query;
@@ -43,7 +38,6 @@ export default function Lighting() {
   let queryS = queryString.stringify(query, {
     arrayFormat: "comma",
   });
-  console.log(query);
   if (brand || price || rating || hubRequired) {
     endpoint = endpoint() + "&" + queryS;
   }
@@ -67,12 +61,12 @@ export default function Lighting() {
 
   /*Get Products */
   const { data } = useSWR(endpoint, fetcher);
-  console.log(queryS);
 
   const buttonTitle = "Lighting & Switches";
 
   const compatibilityMode = () => {
     setCompatibilityMode(!isCompatibilityMode);
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -87,20 +81,23 @@ export default function Lighting() {
           compatMode={compatibilityMode}
           isCompatibilityMode={isCompatibilityMode}
         />
-          <div className="hero">
-            {isCompatibilityMode ? (
-              <>
-                {" "}
-                Currently showing products that work with work with your build.{" "}To see all products turn off Compatibility Mode.{" "}
-              </>
-            ) : (
-              <>
-                {" "}
-                Currently showing all products. To only see compatibile
-                products, turn on Compatibility Mode.{" "}
-              </>
-            )}{" "}
-          </div>
+        <div className="hero">
+          {isCompatibilityMode ? (
+            <span>
+              {" "}
+              Currently showing products that work with work with your build. To
+              see all products turn{" "}
+              <button className="compat-button" onClick={() => setCompatibilityMode(false)}>off</button> Compatibility Mode.{" "}
+            </span>
+          ) : (
+            <span>
+              {" "}
+              Currently showing all products. To only see compatibile products,
+              turn <button className="compat-button" onClick={() => setCompatibilityMode(true)}>on</button> Compatibility
+              Mode.{" "}
+            </span>
+          )}{" "}
+        </div>
         <div className="row">
           {data ? (
             data.map((item) => (
@@ -112,82 +109,101 @@ export default function Lighting() {
               <Skeleton />
               <Skeleton />
               <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
             </>
           )}
         </div>
 
         <style jsx>{`
-      .main {
-        display: grid;
-        grid-template-rows: 80px 80px 1fr;
-        grid-template-columns: 300px 1fr;
-        grid-template-areas: 
-          'filter filter'
-          'sidebar header'
-          'sidebar products'
-          'footer footer'; 
-      }
-      .hero {
-        width: 100%;
-        color: #333;
-        grid-area: header;
-        display: grid;
-        place-items: center;
-        font-weight: 700;
-      }
-      @media only screen and (max-width: 1150px) {
-        .main {
-          grid-template-rows: 60px 80px 1fr;  
-          grid-template-columns: 1fr;
-          grid-template-areas: 
-          'filter filter'
-          'sidebar sidebar'
-          'products products'
-          'footer footer';
-        }
-        .hero {
-          display: none;
-        }
-      }
-      
-      .title {
-        margin: 0;
-        width: 100%;
-        padding-top: 40px;
-        line-height: 1.15;
-        font-size: 48px;
-      }
-      .title,
-      .description {
-        text-align: center;
-      }
-      .row {
-        grid-area: products;
-        max-width: 680px;
-        width: 90%;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        margin-left: auto;
-        margin-right: auto;
-        justify-content: space-around;
-        margin-bottom: 200px;
-      }
-      .row::after {
-        content: "";
-        flex: 0 1 calc(40%);
-        margin: .5rem;
-        max-width: 400px;
-      }
-      @media only screen and (min-width: 1151px) {
-        .row {
-          margin: 0em 3em 20em 3em;
-          max-width: 100%;
-          justify-content: flex-start;
-        }
-    }
+          .main {
+            display: grid;
+            grid-template-rows: 80px 80px 1fr;
+            grid-template-columns: 300px 1fr;
+            grid-template-areas:
+              "filter filter"
+              "sidebar header"
+              "sidebar products"
+              "footer footer";
+          }
+          .hero {
+            width: 100%;
+            color: #333;
+            grid-area: header;
+            display: grid;
+            align-items: center;
+            padding-left: 3.5rem;
+            font-weight: 700;
+          }
+          @media only screen and (max-width: 1150px) {
+            .main {
+              grid-template-rows: 60px 80px 1fr;
+              grid-template-columns: 1fr;
+              grid-template-areas:
+                "filter filter"
+                "sidebar sidebar"
+                "products products"
+                "footer footer";
+            }
+            .hero {
+              display: none;
+            }
+          }
 
-    `}</style>
+          .title {
+            margin: 0;
+            width: 100%;
+            padding-top: 40px;
+            line-height: 1.15;
+            font-size: 48px;
+          }
+          .title,
+          .description {
+            text-align: center;
+          }
+          .row {
+            grid-area: products;
+            max-width: 660px;
+            width: 90%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            margin-left: auto;
+            margin-right: auto;
+            justify-content: space-around;
+            margin-bottom: 200px;
+          }
+          .row::after {
+            content: "";
+            flex: 0 1 calc(40%);
+            margin: 0.5rem;
+            max-width: 200px;
+          }
+          .compat-button {
+            display: inline;
+            background: #fdff32;
+            border: none;
+            color: #000;
+            font-weight: inherit;
+            font-size: inherit;
+            padding: 2px;
+          }
+          @media only screen and (min-width: 720px) {
+            .row {
+              justify-content: flex-start;
+            }
+          }
+          @media only screen and (min-width: 1151px) {
+            .row {
+              margin: 0em 3em 20em 3em;
+              max-width: 100%;
+              justify-content: flex-start;
+            }
+          }
+        `}</style>
       </div>
     </Layout>
   );

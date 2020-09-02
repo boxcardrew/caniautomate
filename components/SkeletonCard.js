@@ -7,8 +7,8 @@ export const Skeleton = () => (
         width: 40%;
         height: 211px;
         transistion: all 1s;
-        max-width: 310px;
-        max-height: 363px;
+        max-width: 240px;
+        max-height: 340px;
       }
       @media only screen and (min-width: 768px) {
         .skeleton {

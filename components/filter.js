@@ -7,18 +7,70 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
   const { brand, price } = router;
 
   const [filters, setFilters] = useState({});
+  const [isSelected, setIsSelected] = useState();
+  const [loading, setLoading] = useState(true);
+
   const stringed = queryString.stringify(filters, {
     arrayFormat: "comma",
   });
+
+  const [brandArray, setBrandArray] = useState({});
+  const brands = [];
+  const [ratings, setRatings] = useState({ });
+
+  useEffect(() => {
+    let rating = {5: 0, 4: 0, 3: 0, 2: 0, 1: 0}
+    if (!data) return;
+    data.forEach((item) => {
+      if (item.rating > 0 && item.rating < 2) {
+        rating[1] += 1;
+      }
+      if (item.rating >= 2 && item.rating < 3) {
+        rating[2] += 1;
+      }
+      if (item.rating >= 3 && item.rating < 4) {
+        rating[3] += 1;
+      }
+      if (item.rating >= 4 && item.rating < 5) {
+        rating[4] += 1;
+      }
+      if (item.rating === 5) {
+        rating[5] += 1;
+      }
+    });
+    const sortedRating = {};
+    Object.keys(rating).forEach(key => sortedRating[key] = rating[key])
+    setRatings(sortedRating)
+  }, [data]);
+
+  useEffect(() => {
+    if (!data) return;
+    data.forEach((item) => {
+      brands[item.brand] = brands[item.brand] ? (brands[item.brand] += 1) : 1;
+    });
+    setBrandArray(brands);
+
+  }, [data]);
+
+
+  useEffect(() => {
+  if (!data) return;
+  if (!loading) return;
+  const initialIsSelected = data.reduce((acc, d) => {
+    acc[d.brand] = false;
+    return acc;
+  }, {})
+  setIsSelected(initialIsSelected);
+  setLoading(false);
+  }, [data])
+
   useEffect(() => {
     window.onpopstate = () => {
       setFilters(location.search);
     };
-    console.log(filters);
   }, []);
 
   if (!data) {
-    console.log("loading");
   } else {
     var itemsjs = require("itemsjs")(data, {
       sortings: {
@@ -75,15 +127,17 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
     }
   };
 
+
   // NEED TO ADD SHALLOW ROUTING????
   const handleCheckBox = (e) => {
     const newFilters = {
       ...filters,
       [e.target.name]: e.target.value,
     };
+    setIsSelected({...isSelected, [e.target.value]: true})
     setFilters({
       ...filters,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
     router.push(
       {
@@ -92,7 +146,20 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
       },
       undefined,
       { shallow: true }
-    );
+    ).then(() => window.scrollTo(0, 0));
+    queryS = stringed;
+    setIsOpen(!isOpen);
+  };
+  const handleRating = (e) => {
+    stringed = queryS + e.target.name + '>' + e.target.value
+    router.push(
+      {
+        pathname: `/products/${cat}`,
+        query: queryS,
+      },
+      undefined,
+      { shallow: true }
+    ).then(() => window.scrollTo(0, 0));
     queryS = stringed;
     setIsOpen(!isOpen);
   };
@@ -104,16 +171,28 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const removeFilter = (valueName, valueKey) => (e) => {
-    router.push({
-      pathname: "/products",
-      query: {},
-    });
-    setFilters("");
+  const removeFilter = (e) => {
+    setIsSelected({...isSelected, [e.target.value]: false})
+
+    delete filters[e.target.name];
+
+    setFilters(filters)
+    
+
+    router.push(
+      {
+        pathname:`/products/${cat}`,
+        query: filters,
+      },
+      undefined,
+      { shallow: true }
+    ).then(() => window.scrollTo(0, 0))
+
+    setIsOpen(!isOpen)
   };
 
   const menuOpen = isOpen
-    ?  {
+    ? {
         visibillity: "visible",
         zIndex: "2",
         opacity: "1",
@@ -125,7 +204,7 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
         opacity: "0",
         transition: "all .25s",
       };
-  
+
   const filterOpen = isOpen ? "filter-list open" : "filter-list";
 
   return (
@@ -137,6 +216,50 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
         <button>Sort</button>
       </div>
       <div className={filterOpen}>
+        {products ? (
+          <div>
+            <h6>Brands</h6>
+            <ul>
+              {Object.entries(brandArray).map(([key, value]) => (
+                <li key={key} >
+                  <label className="input">
+                    <input
+                      name="brand"
+                      type="checkbox"
+                      checked={isSelected[key]}
+                      value={key}
+                      onChange={isSelected[key] ? removeFilter : handleCheckBox}
+                      autoComplete="off"
+                    />
+                    <span> </span>
+                    {key} ({value})
+                  </label>
+                </li>
+              ))}
+            </ul>
+          
+          
+            <h6>Rating</h6>
+            <ul>
+              {Object.entries(ratings).reverse().map(([key, value]) => (
+                <li key={key}>
+                  <label className="input">
+                    <input
+                      name="rating"
+                      type="checkbox"
+                      checked={Object.values(router.query).includes(key)}
+                      value={key}
+                      onChange={handleRating}
+                      disabled={value < 1 ? true : false}
+                    />
+                    <span> </span>
+                    <Stars number={key} /> ({value})
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
         {products ? (
           <>
             <div>
@@ -187,6 +310,9 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
         {`
           .sidebar {
             grid-area: sidebar;
+          }
+          input, .input {
+            cursor: pointer; 
           }
           .break {
             width: 60%;
@@ -271,5 +397,89 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
     </div>
   );
 };
+
+const Stars = ({number}) => (
+  <span className="rating">
+    {number >= 1 && (
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24"
+                viewBox="0 0 24 24"
+                width="24"
+              >
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                <path d="M0 0h24v24H0z" fill="none" />
+              </svg>
+            </span>
+          )}
+          {number >= 2 && (
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24"
+                viewBox="0 0 24 24"
+                width="24"
+              >
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                <path d="M0 0h24v24H0z" fill="none" />
+              </svg>
+            </span>
+          )}
+          {number >= 3 && (
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24"
+                viewBox="0 0 24 24"
+                width="24"
+              >
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                <path d="M0 0h24v24H0z" fill="none" />
+              </svg>
+            </span>
+          )}
+          {number >= 4 && (
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24"
+                viewBox="0 0 24 24"
+                width="24"
+              >
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                <path d="M0 0h24v24H0z" fill="none" />
+              </svg>
+            </span>
+          )}
+          {number >= 5 && (
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24"
+                viewBox="0 0 24 24"
+                width="24"
+              >
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                <path d="M0 0h24v24H0z" fill="none" />
+              </svg>
+            </span>
+          )}
+          <style jsx>{`
+            .rating svg {
+              fill: #e0c620;
+              vertical-align: middle;
+              margin-bottom: 5px;
+              height: 1.2rem;
+              width: 1.2rem;
+            }
+          `}</style>
+  </span>
+)
 
 export default Filter;

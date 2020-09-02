@@ -20,7 +20,7 @@ export const Card = ({ item, addFunc }) => (
       <p>{item.item}</p>
       <div className="card-details">
         <span className="rating">
-          {item.rating >= 1 && (
+          {item.rating >= 0 && (
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -106,6 +106,7 @@ export const Card = ({ item, addFunc }) => (
         display: flex;
         flex-direction: column;
         border: none;
+        align-items: center;
       }
       .card:hover {
         box-shadow: 0px 3px 6px rgba(65,115,192,.25);
