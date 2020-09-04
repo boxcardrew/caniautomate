@@ -151,11 +151,12 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
     setIsOpen(!isOpen);
   };
   const handleRating = (e) => {
-    stringed = queryS + e.target.name + '>' + e.target.value
+    const ratingString = e.target.name + '>' + e.target.value
+    let current = window.location
+    window.location = current + '?' + ratingString
     router.push(
       {
         pathname: `/products/${cat}`,
-        query: queryS,
       },
       undefined,
       { shallow: true }
@@ -249,7 +250,7 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
                       type="checkbox"
                       checked={Object.values(router.query).includes(key)}
                       value={key}
-                      onChange={handleRating}
+                      onChange={isSelected[key] ? removeFilter : handleCheckBox}
                       disabled={value < 1 ? true : false}
                     />
                     <span> </span>

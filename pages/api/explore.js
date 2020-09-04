@@ -9,8 +9,12 @@ handler.use(middleware);
 
 handler.get (async (req, res) => {
   let { filter } = aqp(req.query, {
+    casters: {
+      minRating: val => val = {$gte: + val}
+    },
     castParams: {
       price: 'string',
+      rating: 'minRating',
     }
   }
     );
