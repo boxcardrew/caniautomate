@@ -56,7 +56,8 @@ const Home = () => {
           <section className="hero">
             <h1 className="title">The smart way to build your smart home.</h1>
             <h4 className="subtitle">
-              We take the guess work out of home automation.
+              Take the guess work out of finding light bulbs, sensors, cameras,
+              switches, and more
             </h4>
             <Link href="/build">
               <a className="btn">Build Now</a>
@@ -65,9 +66,14 @@ const Home = () => {
           <section className="explore">
             <div className="explore-heading">
               <h3 className="subtitle">
-              <span className="blue">Explore compatible products for your home</span> 
+                <span className="blue">
+                  Explore compatible products for your home
+                </span>
               </h3>
-              <p>We only show you products that work with your Smart Home</p>
+              <p>
+                Start with a smart speaker, hub, or a light bulb. We will show
+                you products that work with your products, no more guessing.
+              </p>
               <Link href="/products/hubs">
                 <a className="btn light">Explore Now</a>
               </Link>
@@ -131,8 +137,8 @@ const Home = () => {
           }
         }
         .btn {
-          font-size: 1rem;
-          padding: 10px 20px;
+          font-size: 1.25rem;
+          padding: 10px 50px;
           background: #4173c0;
           color: white;
           font-weight: bold;
@@ -140,11 +146,22 @@ const Home = () => {
           border-radius: 5px;
           background: #4173c0;
           box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+          transition: 500ms;
+        }
+        .btn:hover, .btn:focus {
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.35);
+          background: #365F9E;
         }
         .btn.light {
           background: transparent;
           color: #4173c0;
           border: 1px solid #4173c0; 
+        }
+        @media only screen and (max-width: 851px) {
+          .btn {
+            font-size: 1.05rem;
+            padding: 10px 40px;
+          }
         }
 
         /* Hero Section */
@@ -178,13 +195,13 @@ const Home = () => {
           font-size: calc(1.25rem + .75vw);
           font-weight: 600;
           margin-bottom: 1em;
-          max-width: 600px;
+          max-width: 70%;
           text-align: center;
         }
         @media only screen and (max-width: 851px) {
-          .subtitle {
-            font-size: 1.15rem;
-            max-width: 80%; 
+         .hero .subtitle {
+            font-size: 1.25rem;
+            max-width: 85%; 
           }
         }
         @media only screen and (max-width: 1024px) {
@@ -225,6 +242,11 @@ const Home = () => {
         }
         .explore-heading p {
           margin-bottom: 2em;
+          max-width: 80%;
+          margin-left: auto;
+          margin-right: auto;
+          font-size: 1.25rem;
+          
         }
 
         @media screen and (max-width: 1024px) {
@@ -297,6 +319,7 @@ const Home = () => {
         .guides-right p {
           margin: 0 auto 2em auto;
           max-width: 480px;
+          font-size: 1.25rem;
         }
 
         @media screen and (max-width: 1024px) {

@@ -12,6 +12,7 @@ import {
   setListCookie,
   useListState,
   getQueryParams,
+  getInitialQueryParams,
 } from "../../components/build-context";
 import { Skeleton } from "../../components/SkeletonCard";
 import { Card } from "../../components/Card";
@@ -23,7 +24,7 @@ export default function Hubs() {
 
   console.log(buildParams);
 
-  const [isCompatibilityMode, setCompatibilityMode] = useState(false);
+  const [isCompatibilityMode, setCompatibilityMode] = useState(true);
 
   let endpoint = isCompatibilityMode
     ? `/api/explore?category=hubs`
@@ -52,7 +53,7 @@ export default function Hubs() {
       type: "add",
       payload: item.productId,
     });
-    Router.push("/build");
+    Router.push("/build").then(() => window.scrollTo(0, 0));
   };
 
   /* Cookies Options, available server side */
@@ -62,16 +63,55 @@ export default function Hubs() {
 
   /*Get Products */
   const { data } = useSWR(endpoint, fetcher);
-  console.log(queryS);
 
   const buttonTitle = "Hubs & Bridges";
+
+  const compatibilityMode = () => {
+    setCompatibilityMode(!isCompatibilityMode);
+    window.scrollTo(0, 0);
+  };
 
   return (
     <Layout>
       <div className="main">
         <Categroy button={buttonTitle} />
-        <div className="hero"></div>
-        <Filter data={data} router={query} queryS={queryS} cat={cat} />
+        <Filter
+          data={data}
+          router={query}
+          queryS={queryS}
+          cat={cat}
+          compatMode={compatibilityMode}
+          isCompatibilityMode={isCompatibilityMode}
+        />
+        <div className="hero">
+          {isCompatibilityMode ? (
+            <span>
+              {" "}
+              Currently showing products that work with work with your build. To
+              see all products turn{" "}
+              <button
+                className="compat-button"
+                onClick={() => setCompatibilityMode(false)}
+              >
+                off
+              </button>{" "}
+              Compatibility Mode.{" "}
+            </span>
+          ) : (
+            <span>
+              {" "}
+              Currently showing all products. To only see compatibile products,
+              turn{" "}
+              <button
+                className="compat-button"
+                onClick={() => setCompatibilityMode(true)}
+              >
+                on
+              </button>{" "}
+              Compatibility Mode.{" "}
+            </span>
+          )}{" "}
+        </div>
         <div className="row">
           {data ? (
             data.map((item) => (
@@ -83,16 +123,20 @@ export default function Hubs() {
               <Skeleton />
               <Skeleton />
               <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
             </>
           )}
         </div>
-        <div className="footer">_____</div>
 
         <style jsx>{`
           .main {
             display: grid;
             grid-template-rows: 80px 80px 1fr;
-            grid-template-columns: 250px 1fr;
+            grid-template-columns: 300px 1fr;
             grid-template-areas:
               "filter filter"
               "sidebar header"
@@ -104,7 +148,8 @@ export default function Hubs() {
             color: #333;
             grid-area: header;
             display: grid;
-            place-items: center;
+            align-items: center;
+            padding-left: 3.5rem;
             font-weight: 700;
           }
           @media only screen and (max-width: 1150px) {
@@ -135,15 +180,35 @@ export default function Hubs() {
           }
           .row {
             grid-area: products;
-            max-width: 680px;
+            max-width: 660px;
             width: 90%;
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
             margin-left: auto;
             margin-right: auto;
-            justify-content: space-between;
+            justify-content: space-around;
             margin-bottom: 200px;
+          }
+          .row::after {
+            content: "";
+            flex: 0 1 calc(40%);
+            margin: 0.5rem;
+            max-width: 200px;
+          }
+          .compat-button {
+            display: inline;
+            background: #fdff32;
+            border: none;
+            color: #000;
+            font-weight: inherit;
+            font-size: inherit;
+            padding: 2px;
+          }
+          @media only screen and (min-width: 720px) {
+            .row {
+              justify-content: flex-start;
+            }
           }
           @media only screen and (min-width: 1151px) {
             .row {

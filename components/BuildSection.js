@@ -413,6 +413,9 @@ const BuildSection = ({ title, category, data, remove }) => (
             transition: 0.5s;
             height: 33px;
             padding-top: 3px;
+            display: grid;
+            place-content: center;
+            font-size: 15px;
           }
 
           .btn.secondary {

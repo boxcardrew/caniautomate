@@ -75,18 +75,20 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
     var itemsjs = require("itemsjs")(data, {
       sortings: {
         name_asc: {
-          field: "Brand",
-          order: "asc",
         },
       },
       aggregations: {
-        brand: {
-          title: "Brand",
+        bulbShape: {
+          title: "Bulb Shape",
           conjunction: false,
           size: 10,
         },
-        MSRP: {
-          title: "MSRP",
+        color: {
+          title: "Color",
+          size: 10,
+        },
+        Dimmable: {
+          title: "Dimmable",
           size: 10,
         },
         rating: {
@@ -112,10 +114,10 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
 
     // console.log(JSON.stringify(products, null, 2));
 
-    var top_tags = itemsjs.aggregation({
-      name: "brand",
-      per_page: 10,
-    });
+    // var top_tags = itemsjs.aggregation({
+    //   name: "brand",
+    //   per_page: 10,
+    // });
     // console.log(JSON.stringify(top_tags, null, 2))
   }
 
@@ -232,7 +234,7 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
                       onChange={isSelected[key] ? removeFilter : handleCheckBox}
                       autoComplete="off"
                     />
-                    <span> </span>
+                    <span className="checkbox"> </span>
                     {key} ({value})
                   </label>
                 </li>
@@ -253,7 +255,7 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
                       onChange={isSelected[key] ? removeFilter : handleCheckBox}
                       disabled={value < 1 ? true : false}
                     />
-                    <span> </span>
+                    <span className="checkbox"> </span>
                     <Stars number={key} /> ({value})
                   </label>
                 </li>
@@ -271,6 +273,7 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
                   onChange={changeCompat}
                   checked={isCompatibilityMode}
                 />
+                 <span className="checkbox"> </span>
                 Compatibility Mode
               </label>
               <h6>Total Items {products.pagination.total}</h6>
@@ -349,6 +352,36 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
           ul li {
             padding: 5px 0;
           }
+          .input {
+            position: relative;
+          }
+          input[type="checkbox"] {
+            opacity: 0;
+            position: absolute;
+            top: 3px;
+            left: 2px;
+          }
+          input[type="checkbox"]:focus {
+            opacity: 1;
+            background: #1976d2;
+          } 
+          input[type="checkbox"] + .checkbox {
+            display: inline-block;
+            vertical-align: text-top;
+            width: 1.05em;
+            height: 1.05em;
+            margin-right: 3px;
+            margin-top: 1px;
+          }
+          input[type="checkbox"] + .checkbox {
+            background: url(/checkbox.svg);
+            background-size: 1.05em 1.05em;
+          }
+          input[type="checkbox"]:checked + .checkbox {
+            background: url(/checkbox-checked.svg);
+            background-size: 1.05em 1.05em;
+          }
+
 
           @media only screen and (max-width: 1150px) {
             .filter-list {

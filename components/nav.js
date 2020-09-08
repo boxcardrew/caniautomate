@@ -56,7 +56,7 @@ const Nav = () => {
                 <ActiveLink activeClassName="active" href={path} key={label}>
                   <a className="">
                     <li key={path}>
-                      <img src={icon} width="40px" height="40px" />
+                      <img src={icon} width="36px" height="36px" />
                       <span className="label">{label}</span>
                     </li>
                   </a>
@@ -71,7 +71,7 @@ const Nav = () => {
                   tabIndex="0"
                 >
                   <li>
-                    <img src="/explorex2.png" width="40px" height="40px" />
+                    <img src="/explorex2.png" width="36px" height="36px" />
                     <span className="label">Explore</span>
                   </li>
                 </a>
@@ -86,7 +86,7 @@ const Nav = () => {
                   tabIndex="0"
                 >
                   <li>
-                    <img src="/explorex2.png" width="40px" height="40px" />
+                    <img src="/explorex2.png" width="36px" height="36px" />
                     <span className="label">Explore</span>
                   </li>
                 </a>
@@ -175,7 +175,7 @@ const Nav = () => {
           top: 0;
           text-align: center;
           width: 100%;
-          height: 110px;
+          height: 100px;
           background: #fff;
           z-index: 3;
           padding-top: 15px;
@@ -211,7 +211,7 @@ const Nav = () => {
           margin: 0 20px;
           box-shadow: 0px 3px 6px #00000029;
         }
-        .nav-left a:hover {
+        .nav-left a:hover, .nav-left a:focus {
           width: 105px;
           height: 82px;
           background: #EDF1F7;

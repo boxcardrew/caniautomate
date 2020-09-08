@@ -16,7 +16,7 @@ const Layout = (props) => (
     <style jsx>{`
       :global(body) {
         font-family: "Roboto", sans-serif;
-        line-height: 1.65;
+        line-height: 1.25;
         font-weight: 400;
         background-image: url(/Ellipse41.svg), url(/Ellipse42.svg);
         background-position: top left -250px, bottom -500px right;

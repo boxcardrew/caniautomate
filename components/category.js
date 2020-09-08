@@ -73,7 +73,7 @@ const Category = ({ button }) => {
           .filter {
             grid-area: filter;
             position: fixed;
-            top: 110px;
+            top: 100px;
             left: 0;
             width: 100vw;
             height: 80px;

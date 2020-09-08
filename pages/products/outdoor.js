@@ -26,7 +26,7 @@ export default function Products() {
   const [isCompatibilityMode, setCompatibilityMode] = useState(false);
 
   let endpoint = isCompatibilityMode
-      ? `/api/explore?category=outdoor`
+    ? `/api/explore?category=outdoor`
     : `/api/explore?category=outdoor`;
 
   console.log(endpoint);
@@ -52,7 +52,7 @@ export default function Products() {
       type: "add",
       payload: item.productId,
     });
-    Router.push("/build");
+    Router.push("/build").then(() => window.scrollTo(0, 0));
   };
 
   /* Cookies Options, available server side */
@@ -66,16 +66,56 @@ export default function Products() {
 
   const buttonTitle = "Outdoor";
 
+  const compatibilityMode = () => {
+    setCompatibilityMode(!isCompatibilityMode);
+    window.scrollTo(0, 0);
+  };
+
   return (
     <Layout>
       <div className="main">
         <Categroy button={buttonTitle} />
-        <div className="hero"></div>
-        <Filter data={data} router={query} queryS={queryS} cat={cat} />
+        <Filter
+          data={data}
+          router={query}
+          queryS={queryS}
+          cat={cat}
+          compatMode={compatibilityMode}
+          isCompatibilityMode={isCompatibilityMode}
+        />
+        <div className="hero">
+          {isCompatibilityMode ? (
+            <span>
+              {" "}
+              Currently showing products that work with work with your build. To
+              see all products turn{" "}
+              <button
+                className="compat-button"
+                onClick={() => setCompatibilityMode(false)}
+              >
+                off
+              </button>{" "}
+              Compatibility Mode.{" "}
+            </span>
+          ) : (
+            <span>
+              {" "}
+              Currently showing all products. To only see compatibile products,
+              turn{" "}
+              <button
+                className="compat-button"
+                onClick={() => setCompatibilityMode(true)}
+              >
+                on
+              </button>{" "}
+              Compatibility Mode.{" "}
+            </span>
+          )}{" "}
+        </div>
         <div className="row">
           {data ? (
             data.map((item) => (
-              <Card item={item} addFunc={addProduct} key={item.productId}/> 
+              <Card item={item} addFunc={addProduct} key={item.productId} />
             ))
           ) : (
             <>
@@ -83,72 +123,101 @@ export default function Products() {
               <Skeleton />
               <Skeleton />
               <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
             </>
           )}
         </div>
-        <div className="footer">_____</div>
 
         <style jsx>{`
-      .main {
-        display: grid;
-        grid-template-rows: 80px 1fr;
-        grid-template-columns: 250px 1fr;
-        grid-template-areas: 
-          'filter filter'
-          'sidebar products'
-          'sidebar products'
-          'footer footer'; 
-      }
-      @media only screen and (max-width: 1150px) {
-        .main {
-          grid-template-rows: 60px 1fr;  
-          grid-template-columns: 1fr;
-          grid-template-areas: 
-          'filter filter'
-          'products products'
-          'products products'
-          'footer footer';
-        }
-      }
-      
-      }
-      .hero {
-        width: 100%;
-        color: #333;
-        grid-area: header;
-      }
-      .title {
-        margin: 0;
-        width: 100%;
-        padding-top: 40px;
-        line-height: 1.15;
-        font-size: 48px;
-      }
-      .title,
-      .description {
-        text-align: center;
-      }
-      .row {
-        grid-area: products;
-        max-width: 680px;
-        width: 90%;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        margin-left: auto;
-        margin-right: auto;
-        justify-content: space-between;
-        margin-bottom: 200px;
-      }
-      @media only screen and (min-width: 1151px) {
-        .row {
-          margin: 2em 3em 20em 3em;
-          max-width: 100%;
-          justify-content: flex-start;
-        }
-    }
+          .main {
+            display: grid;
+            grid-template-rows: 80px 80px 1fr;
+            grid-template-columns: 300px 1fr;
+            grid-template-areas:
+              "filter filter"
+              "sidebar header"
+              "sidebar products"
+              "footer footer";
+          }
+          .hero {
+            width: 100%;
+            color: #333;
+            grid-area: header;
+            display: grid;
+            align-items: center;
+            padding-left: 3.5rem;
+            font-weight: 700;
+          }
+          @media only screen and (max-width: 1150px) {
+            .main {
+              grid-template-rows: 60px 80px 1fr;
+              grid-template-columns: 1fr;
+              grid-template-areas:
+                "filter filter"
+                "sidebar sidebar"
+                "products products"
+                "footer footer";
+            }
+            .hero {
+              display: none;
+            }
+          }
 
-    `}</style>
+          .title {
+            margin: 0;
+            width: 100%;
+            padding-top: 40px;
+            line-height: 1.15;
+            font-size: 48px;
+          }
+          .title,
+          .description {
+            text-align: center;
+          }
+          .row {
+            grid-area: products;
+            max-width: 660px;
+            width: 90%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            margin-left: auto;
+            margin-right: auto;
+            justify-content: space-around;
+            margin-bottom: 200px;
+          }
+          .row::after {
+            content: "";
+            flex: 0 1 calc(40%);
+            margin: 0.5rem;
+            max-width: 200px;
+          }
+          .compat-button {
+            display: inline;
+            background: #fdff32;
+            border: none;
+            color: #000;
+            font-weight: inherit;
+            font-size: inherit;
+            padding: 2px;
+          }
+          @media only screen and (min-width: 720px) {
+            .row {
+              justify-content: flex-start;
+            }
+          }
+          @media only screen and (min-width: 1151px) {
+            .row {
+              margin: 0em 3em 20em 3em;
+              max-width: 100%;
+              justify-content: flex-start;
+            }
+          }
+        `}</style>
       </div>
     </Layout>
   );
