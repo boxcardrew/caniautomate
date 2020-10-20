@@ -1,6 +1,8 @@
 import Link from "next/link";
 
-const BuildSection = ({ title, category, data, remove }) => (
+const GuideList = ({ title, data }) => {
+
+  return (
   <>
     <table>
       <caption>{title}</caption>
@@ -12,7 +14,6 @@ const BuildSection = ({ title, category, data, remove }) => (
         <col className="col-price" />
         <col className="col-where" />
         <col className="col-buy" />
-        <col className="col-remove" />
       </colgroup>
       <tbody>
         <tr className="tr_headers">
@@ -23,14 +24,13 @@ const BuildSection = ({ title, category, data, remove }) => (
           <th>Price</th>
           <th>Where</th>
           <th>&nbsp;</th>
-          <th>&nbsp;</th>
         </tr>
         {data
           .map(
             ({ brand, image, item, MSRP, price, where, link, productId }) => (
               <tr className="tr_product" id="toggle" key={productId}>
                 <td className="td_image">
-                  <img src={image} height="63px" width="auto" style={{ width: '4rem', height: '4rem', objectFit: 'contain' }} />
+                  <img src={image} height="63px" width="auto" style={{ width: '4rem', height: '4rem', objectFit: 'contain' }}/>
                 </td>
                 <td className="td_brand">{brand}</td>
                 <td className="td_item">
@@ -61,55 +61,9 @@ const BuildSection = ({ title, category, data, remove }) => (
                     Check Price
                   </a>
                 </td>
-                <td className="td_remove">
-                  <button
-                    className="btn secondary large"
-                    onClick={() => remove(productId)}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      width="24"
-                    >
-                      <path d="M0 0h24v24H0z" fill="none" />
-                      <path
-                        d="M14.59 8L12 10.59 9.41 8 8 9.41 10.59 12 8 14.59 9.41 16 12 13.41 14.59 16 16 14.59 13.41 12 16 9.41 14.59 8zM12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
-                        fill="#d9534f"
-                      />
-                    </svg>
-                  </button>
-                  <button
-                    className="btn secondary"
-                    onClick={() => remove(productId)}
-                  >
-                    Remove
-                  </button>
-                </td>
               </tr>
             )
           )}
-        <tr className="tr_product">
-            <td className="td_add" colSpan="10" aria-label={"add " + category} >
-          <Link href={`products/${category}`} >
-            <a className="add-link">
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="#4173c0"
-                  width="33px"
-                  height="33px"
-                >
-                  <path d="M0 0h24v24H0z" fill="none" />
-                  <path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
-                </svg>
-              </span>
-              <span>Add Item</span>
-            </a>
-          </Link>
-            </td>
-        </tr>
       </tbody>
     </table>
 
@@ -185,13 +139,14 @@ const BuildSection = ({ title, category, data, remove }) => (
           color: #f1f1f1;
           text-align: center;
           font-weight: 700;
-          padding: 2px 12px;
+          padding: 4px 12px;
           font-size: 12px;
           border-radius: 4px;
           background: #4173c0;
           box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
           text-decoration: none;
         }
+        
 
         .btn.secondary.large {
           display: inline-block;
@@ -208,7 +163,7 @@ const BuildSection = ({ title, category, data, remove }) => (
         @media screen and (min-width: 851px) {
           table {
             width: 97%;
-            max-width: 1300px;
+            max-width: 1500px;
             table-layout: fixed;
           }
 
@@ -231,9 +186,12 @@ const BuildSection = ({ title, category, data, remove }) => (
           .col-msrp,
           .col-price,
           .col-where,
-          .col-buy,
           .col-remove {
             width: 8.33%;
+          }
+
+          .col-buy {
+            width: 10%;
           }
 
           .td_buy {
@@ -384,8 +342,9 @@ const BuildSection = ({ title, category, data, remove }) => (
           }
 
           .td_buy {
-            grid-column: 1 / span 2;
+            grid-column: 1 / -1;
             place-self: center;
+            width: 100%;
           }
 
           .td_remove {
@@ -394,7 +353,7 @@ const BuildSection = ({ title, category, data, remove }) => (
           }
 
           .btn {
-            width: 33vw;
+            width: 100%;
             padding: 6px;
             font-weight: bold;
             font-size: 15px;
@@ -449,6 +408,6 @@ const BuildSection = ({ title, category, data, remove }) => (
       `}
     </style>
   </>
-);
+  )};
 
-export default BuildSection;
+export default GuideList;

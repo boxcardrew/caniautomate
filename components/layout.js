@@ -26,7 +26,8 @@ const Layout = (props) => (
       @media only screen and (max-width: 1024px) {
         :global(body) {
           background-size: 85%, 55%;
-          background-position: top left -250px, bottom 550px right -100px;
+          background-position: top 60px left -50px, bottom 1050px right -100px;
+          
         }
       }
       :global(*) {

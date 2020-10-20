@@ -1,27 +1,41 @@
-export const GuideCard = () => (
-  <div className="guide-card">
-    <span className="card-label">Featured</span>
-    <h5>Alexa Theater Room</h5>
-    <span className="rating">
-      1.2k
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height="24"
-        viewBox="0 0 24 24"
-        width="24"
-      >
-        <path d="M0 0h24v24H0z" fill="none" />
-        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-        <path d="M0 0h24v24H0z" fill="none" />
-      </svg>
-    </span>
-    <p>Amazon Echo, Sengled Hub, Fire TV Stick, Logitech Harmony</p>
-    <span className="total">$350</span>
+import Link from "next/link";
+
+export const GuideCard = ({ data, label }) => (
+  <div key={data.slug}>
+    <Link href={`/guides/${data.slug}`}>
+      <a>
+        <div className="guide-card">
+          {/* <span className="card-label">{(Array.isArray(data.label)) ? data.label.slice(0, 1): data.label }</span> */}
+          <span className="card-label">{label}</span>
+          <h5>{data.title}</h5>
+          <span className="rating">
+            {data.stars}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              <path d="M0 0h24v24H0z" fill="none" />
+            </svg>
+          </span>
+          <p>{data.tags.join(", ")}</p>
+          <span className="total">${data.total}</span>
+        </div>
+      </a>
+    </Link>
     <style jsx>{`
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
       .guide-card {
         background: #fff;
-        max-width: 483px;
-        min-height: 135px;
+        width: calc(100vw - 5rem);
+        max-width: 400px;
+        min-height: 120px;
         box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
         display: grid;
         grid-template-rows: auto auto;
@@ -49,11 +63,18 @@ export const GuideCard = () => (
         font-weight: 700;
         font-size: small;
       }
-
+      .guide-card h5 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        height: 4ch;
+        font-size: 1rem;
+      }
       .guide-card p {
         grid-column: 2/3;
         max-width: 80%;
-        place-self: start start;
+        place-self: end start;
         margin-bottom: 0;
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -72,6 +93,16 @@ export const GuideCard = () => (
       .total {
         grid-column: 3;
         place-self: end;
+      }
+      @media only screen and (min-width: 1024px) {
+        .guide-card {
+          min-width: 380px;
+          max-width: 400px;
+          min-height: 130px;
+        }
+        .guide-card h5 {
+          font-size: 1.25rem;
+        }
       }
     `}</style>
   </div>

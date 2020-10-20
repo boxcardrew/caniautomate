@@ -67,8 +67,8 @@ return (
         </ul>
       </div>
     </div>
-    <div style={{ alignSelf: "center" }}>
-        <span>©2020</span>
+    <div style={{ display: "flex", justifyContent: "center", width: "100%", paddingBottom: "1rem" }}>
+        <span>©2020 Can I Automate</span>
     </div>
 
     <style jsx>{`

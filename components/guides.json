@@ -1,0 +1,56 @@
+{
+  "guides": [
+    {
+      "title": "Entry Level Build with Alexa and Philips Hue",
+      "author": "Drew B.",
+      "twitter": "@boxcardrew",
+      "description": "Entry Level with Alexa and Philips Hue",
+      "date": "August 10, 2020",
+      "stars": 25,
+      "tags": ["Echo", "Philips Hue"],
+      "items": [2406, 2425, 2434, 2435, 2439],
+      "total": 484,
+      "slug": "entry-level-alexa-hue",
+      "label": "Featured"
+    },
+    {
+      "title": "Entry Level Build with Google Home and Philips Hue",
+      "author": "Drew B.",
+      "twitter": "@boxcardrew",
+      "description": "Entry Level with Google and Philips Hue",
+      "date": "August 10, 2020",
+      "stars": 10,
+      "tags": ["Google", "Philips Hue"],
+      "items": [2406, 2425, 2434, 2435, 2439],
+      "total": 484,
+      "slug": "entry-level-google-hue",
+      "label": "Popular"
+    },
+    {
+      "title": "Entry Level Build with Siri and Philips Hue",
+      "author": "Drew B.",
+      "twitter": "@boxcardrew",
+      "description": "Entry Level with Siri and Philips Hue",
+      "date": "August 10, 2020",
+      "stars": 19,
+      "tags": ["Siri", "Philips Hue"],
+      "items": [2406, 2425, 2434, 2435, 2439],
+      "total": 484,
+      "slug": "entry-level-siri-hue",
+      "label": "Popular"
+    },
+    {
+      "title": "Alexa Theater Room",
+      "author": "Drew B.",
+      "twitter": "@boxcardrew",
+      "description": "Getting started with Alexa Audio/Video",
+      "date": "August 04, 2020",
+      "stars": 45,
+      "tags": ["Echo", "Sengled", "Logitech"],
+      "items": [2407, 2423, 2458, 2459, 2462, 2401],
+      "total": 445,
+      "slug": "alexa-home-theater",
+      "label": ["Featured", "Popular"]
+    }
+  ]
+}

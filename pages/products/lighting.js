@@ -16,6 +16,7 @@ import {
 } from "../../components/build-context";
 import { Skeleton } from "../../components/SkeletonCard";
 import { Card } from "../../components/Card";
+import Head from "next/head";
 
 export default function Lighting() {
   const buildParams = getQueryParams();
@@ -71,6 +72,9 @@ export default function Lighting() {
 
   return (
     <Layout>
+      <Head>
+      <title>Can I Automate - Lighting</title>
+      </Head>
       <div className="main">
         <Categroy button={buttonTitle} />
         <Filter
@@ -190,6 +194,7 @@ export default function Lighting() {
             font-weight: inherit;
             font-size: inherit;
             padding: 2px;
+            cursor: pointer;
           }
           @media only screen and (min-width: 720px) {
             .row {

@@ -1,6 +1,6 @@
 export const Card = ({ item, addFunc }) => (
   <div className="card" key={item.productId}>
-    <button className="add" onClick={() => addFunc(item)}>
+    <button className="add" onClick={() => addFunc(item)} name="Add Product">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="24"

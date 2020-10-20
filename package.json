@@ -8,6 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@mdx-js/loader": "^1.6.18",
+    "@next/mdx": "^9.5.3",
     "api-query-params": "^4.15.0",
     "cookie": "^0.4.1",
     "isomorphic-unfetch": "^3.0.0",

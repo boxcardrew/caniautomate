@@ -23,7 +23,7 @@ export default function Products() {
 
   console.log(buildParams);
 
-  const [isCompatibilityMode, setCompatibilityMode] = useState(false);
+  const [isCompatibilityMode, setCompatibilityMode] = useState(true);
 
   let endpoint = isCompatibilityMode
     ? `/api/explore?category=outdoor`

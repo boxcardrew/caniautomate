@@ -19,7 +19,7 @@ import { Card } from "../../components/Card";
 export default function Products() {
   const buildParams = getQueryParams();
 
-  const [isCompatibilityMode, setCompatibilityMode] = useState(false);
+  const [isCompatibilityMode, setCompatibilityMode] = useState(true);
 
   let endpoint = isCompatibilityMode
     ? `/api/explore?category=thermostats`

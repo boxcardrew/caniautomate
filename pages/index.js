@@ -4,6 +4,7 @@ import Layout from "../components/layout";
 import Link from "next/link";
 import { getInitialQueryParams } from "../components/build-context";
 import { GuideCard } from "../components/guideCard";
+import data from "../components/guides.json";
 
 const brands = [
   { src: "/brands/alexa.png", alt: "amazon alexa" },
@@ -31,6 +32,8 @@ const useIsMounted = () => {
 };
 
 const Home = () => {
+  const { guides } = data;
+  console.log(guides);
   const isMounted = useIsMounted();
   const brandRef = useRef();
   if (isMounted) {
@@ -54,10 +57,25 @@ const Home = () => {
       <Layout>
         <div className="main">
           <section className="hero">
-            <h1 className="title">The smart way to build your smart home.</h1>
+            <h1 className="title">The smart way to build <span style={{ color: '#4173c0' }}>your smart home</span></h1>
             <h4 className="subtitle">
-              Take the guess work out of finding light bulbs, sensors, cameras,
-              switches, and more
+              Take the guess work out of finding{" "}
+              <Link href="/products/lighting">
+                <a className="blue">light bulbs</a>
+              </Link>
+              ,{" "}
+              <Link href="/products/locks">
+                <a className="blue">door locks</a>
+              </Link>
+              ,{" "}
+              <Link href="/products/cameras">
+                <a className="blue">cameras</a>
+              </Link>
+              ,{" "}
+              <Link href="/products/lighting">
+                <a className="blue">switches</a>
+              </Link>
+              , and more
             </h4>
             <Link href="/build">
               <a className="btn">Build Now</a>
@@ -66,20 +84,19 @@ const Home = () => {
           <section className="explore">
             <div className="explore-heading">
               <h3 className="subtitle">
-                <span className="blue">
-                  Explore compatible products for your home
-                </span>
+                Explore compatible products for your home
               </h3>
               <p>
-                Start with a smart speaker, hub, or a light bulb. We will show
-                you products that work with your products, no more guessing.
+                Start with a smart speaker, hub, or a light bulb. We will only
+                show you the products that work with your build, no more
+                guessing.
               </p>
               <Link href="/products/hubs">
-                <a className="btn light">Explore Now</a>
+                <a className="btn">Explore Now</a>
               </Link>
             </div>
             <div className="explore-right">
-              <img src="/home@2x.png" alt="smart home"></img>
+              {/* <img src="/home.svg" alt="smart home"></img> */}
             </div>
           </section>
           <section className="brands">
@@ -93,16 +110,23 @@ const Home = () => {
           </section>
           <section className="guides">
             <div className="guides-heading">
-              <GuideCard />
-              <GuideCard />
+              {guides
+                .filter((guide) => guide.label.includes("Featured"))
+                .slice(0, 2)
+                .map((guide) => (
+                  <GuideCard data={guide} key={guide.slug} label={"Featured"} />
+                ))}
+              {/* {guides.map(guide => (
+                <GuideCard data={guide}/>
+              ))} */}
             </div>
             <div className="guides-right">
               <h3 className="subtitle">
                 Find a build guide that can show you the way
               </h3>
               <p>
-                Everything from quick start guides to fully automated homes, and
-                everything between.
+                Find everything from quick start guides to fully automated homes
+                and everything in between.
               </p>
               <Link href="/guides">
                 <a className="btn">Find Guides</a>
@@ -113,9 +137,7 @@ const Home = () => {
       </Layout>
 
       <style jsx>{`
-
         :global(body) {
-        
         }
         :global(*) {
           box-sizing: border-box;
@@ -123,7 +145,20 @@ const Home = () => {
           padding: 0;
         }
         .blue {
-          color: #4173c0;
+          position: relative;
+          z-index: 2;
+          text-decoration: none;
+          color: inherit;
+        }
+        .blue::after {
+          content: "";
+          background: rgba(239, 226, 152, 0.9);
+          height: 10px;
+          width: 100%;
+          position: absolute;
+          bottom: 5px;
+          left: 0;
+          z-index: -1;
         }
         .main {
           width: 100%;
@@ -148,14 +183,15 @@ const Home = () => {
           box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
           transition: 500ms;
         }
-        .btn:hover, .btn:focus {
+        .btn:hover,
+        .btn:focus {
           box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.35);
-          background: #365F9E;
+          background: #365f9e;
         }
         .btn.light {
           background: transparent;
           color: #4173c0;
-          border: 1px solid #4173c0; 
+          border: 1px solid #4173c0;
         }
         @media only screen and (max-width: 851px) {
           .btn {
@@ -171,15 +207,15 @@ const Home = () => {
           place-items: center;
           margin-top: 10rem;
           margin-bottom: 17rem;
-          
         }
-        
+
         .title {
-          font-size: calc(1.5rem + 2vw);
+          font-size: calc(2.4rem + 4vw);
           font-weight: 900;
+          letter-spacing: -.175rem;
+          line-height: 1.125;
+          padding-bottom: 0.5em;
           text-align: center;
-          color: #4173c0;
-          padding-bottom: .5em;
         }
 
         @media only screen and (min-width: 1441px) {
@@ -192,26 +228,38 @@ const Home = () => {
         }
 
         .hero .subtitle {
-          font-size: calc(1.25rem + .75vw);
+          font-size: calc(1.25rem + 0.75vw);
           font-weight: 600;
-          margin-bottom: 1em;
+          margin-bottom: 2em;
           max-width: 70%;
           text-align: center;
         }
         @media only screen and (max-width: 851px) {
-         .hero .subtitle {
+          .hero .subtitle {
             font-size: 1.25rem;
-            max-width: 85%; 
+            max-width: 85%;
+          }
+          .btn {
+            width: 85%;
+            max-width: 20rem;
+            min-height: 3rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .hero .btn {
+            margin-bottom: 3rem;
           }
         }
         @media only screen and (max-width: 1024px) {
           .hero {
-            margin-bottom: 10em;
+            margin-bottom: 4em;
             margin-top: 5em;
           }
+          .hero .title {
+            margin-bottom: 1.25rem;
+          }
         }
-
-
 
         /* Explore Section */
 
@@ -224,6 +272,12 @@ const Home = () => {
 
         .explore-right {
           flex-grow: 1;
+          content: " ";
+          width: 100%;
+
+          height: 200px;
+          background: url("/home.svg") center center no-repeat;
+          background-size: contain;
         }
         .explore-right img {
           width: 100%;
@@ -233,25 +287,24 @@ const Home = () => {
         .explore-heading {
           text-align: center;
           flex-grow: 1;
-          padding-right: 5em;
         }
         .explore-heading .subtitle {
-          margin-bottom: .5em;
+          margin-bottom: 0.5em;
           display: inline-block;
           max-width: 520px;
         }
         .explore-heading p {
           margin-bottom: 2em;
-          max-width: 80%;
+          max-width: 80ch;
           margin-left: auto;
           margin-right: auto;
           font-size: 1.25rem;
-          
         }
 
-        @media screen and (max-width: 1024px) {
+        @media screen and (max-width: 1124px) {
           .explore {
             flex-direction: column-reverse;
+            background: none;
           }
           .explore-heading {
             padding-right: 0;
@@ -260,12 +313,18 @@ const Home = () => {
             font-size: 1.5rem;
           }
           .explore-right {
-            margin-bottom: 4em;
+            margin-bottom: 1em;
             max-width: 90%;
           }
         }
-
-
+        @media only screen and (min-width: 1024px) {
+          .expolore-right {
+            min-width: 650px;
+          }
+          .explore-right img {
+            display: none;
+          }
+        }
 
         /* Brands Section */
         .brands {
@@ -279,7 +338,7 @@ const Home = () => {
           margin-bottom: 10em;
           overflow: hidden;
         }
-        
+
         .brand-grid {
           display: grid;
           grid-auto-flow: column;
@@ -298,7 +357,6 @@ const Home = () => {
           justify-content: space-between;
           align-items: center;
           margin-bottom: 10em;
-          
         }
         .guides-right {
           text-align: center;
@@ -306,13 +364,12 @@ const Home = () => {
           margin-bottom: 3.75em;
           padding-left: 2em;
         }
-        }
+
         .guides-heading {
           flex-grow: 1;
-          
         }
         .guides-right .subtitle {
-          margin-bottom: .5em;
+          margin-bottom: 0.5em;
           display: inline-block;
           max-width: 550px;
         }
@@ -335,12 +392,6 @@ const Home = () => {
             padding-left: 0;
           }
         }
-        
-
-
-        
-
-
       `}</style>
     </div>
   );
