@@ -34,7 +34,7 @@ const Category = ({ button }) => {
           event.preventDefault();
           target.scrollLeft += event.deltaY;
         }
-      });
+      },);
     }
   }, []);
 

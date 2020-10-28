@@ -107,11 +107,7 @@ export default function Products() {
           )}{" "}
         </div>
         <div className="row">
-          {data ? (
-            data.map((item) => (
-              <Card item={item} addFunc={addProduct} key={item.productId} />
-            ))
-          ) : (
+          {!data ? (
             <>
               <Skeleton />
               <Skeleton />
@@ -123,6 +119,20 @@ export default function Products() {
               <Skeleton />
               <Skeleton />
             </>
+          ) : 
+            !data.length ? 
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", width: "100%", height: "100%" }}>
+            <h2>Nothing Found. Try Again.</h2>
+            <div>
+              <img src="/not-found.svg" height="300px" width="300px" />
+            </div>
+            
+            </div>
+            :
+            (
+            data.map((item) => (
+              <Card item={item} addFunc={addProduct} key={item.productId} />
+            ))
           )}
         </div>
 

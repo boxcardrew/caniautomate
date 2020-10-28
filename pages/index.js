@@ -57,23 +57,34 @@ const Home = () => {
       <Layout>
         <div className="main">
           <section className="hero">
-            <h1 className="title">The smart way to build <span style={{ color: '#4173c0' }}>your smart home</span></h1>
+            <h1 className="title">
+              The smart way to build{" "}
+              <span style={{ color: "#4173c0" }}>your smart home</span>
+            </h1>
             <h4 className="subtitle">
               Take the guess work out of finding{" "}
               <Link href="/products/lighting">
-                <a className="blue">light bulbs</a>
+                <a className="title-link">
+                  <span className="blue">light bulbs</span>
+                </a>
               </Link>
               ,{" "}
               <Link href="/products/locks">
-                <a className="blue">door locks</a>
+                <a className="title-link">
+                  <span className="blue">door locks</span>
+                </a>
               </Link>
               ,{" "}
               <Link href="/products/cameras">
-                <a className="blue">cameras</a>
+                <a className="title-link">
+                  <span className="blue">cameras</span>
+                </a>
               </Link>
               ,{" "}
               <Link href="/products/lighting">
-                <a className="blue">switches</a>
+                <a className="title-link">
+                  <span className="blue">switches</span>
+                </a>
               </Link>
               , and more
             </h4>
@@ -144,22 +155,33 @@ const Home = () => {
           margin: 0;
           padding: 0;
         }
-        .blue {
+        .title-link {
           position: relative;
-          z-index: 2;
           text-decoration: none;
           color: inherit;
+          line-height: 1.5rem;
         }
-        .blue::after {
-          content: "";
-          background: rgba(239, 226, 152, 0.9);
-          height: 10px;
-          width: 100%;
-          position: absolute;
-          bottom: 5px;
-          left: 0;
-          z-index: -1;
+        .blue {
+          background-image: linear-gradient(
+              to bottom,
+              white 65%,
+              transparent 70%
+            ),
+            linear-gradient(
+              to right,
+              rgba(64, 115, 191, 0.9) 33%,
+              #84A8C1 33%,
+              #84A8C1 66%,
+              rgba(239,226,152,0.9) 66%
+            );
+          background-size: 306% 100%;
+          background-position: 100% 0;
+          transition: 1s background-position;
         }
+        .blue:hover {
+          background-position: 0%;
+        }
+
         .main {
           width: 100%;
           max-width: 1500px;
@@ -212,7 +234,7 @@ const Home = () => {
         .title {
           font-size: calc(2.4rem + 4vw);
           font-weight: 900;
-          letter-spacing: -.175rem;
+          letter-spacing: -0.175rem;
           line-height: 1.125;
           padding-bottom: 0.5em;
           text-align: center;
@@ -220,7 +242,7 @@ const Home = () => {
 
         @media only screen and (min-width: 1441px) {
           .title {
-            font-size: 4.209rem;
+            font-size: calc(4.209rem + 2vw);
           }
           .subtitle {
             font-size: 2.369rem;

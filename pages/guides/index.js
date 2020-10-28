@@ -38,36 +38,45 @@ const Guides = () => {
                 </form>
               </div>
               <section>
-                {query ? 
-                <>
-                  <h3>Search: {query}</h3>
-                  <div className="cards">
-                  {guides[0]
-                    .filter((data) => data.description.toLowerCase().includes(query.toLowerCase()) || data.tags.join().toLowerCase().includes(query.toLowerCase()))
-                    .map((data) => (
-                      <div className="card">
-                        <GuideCard
-                          data={data}
-                          key={data.slug}
-                          label={""}
-                        />
-                      </div>
-                    ))}
-                    
-                </div>
-                </>
-                : 
-                <></>
-                }
+                {query ? (
+                  <>
+                  <div>
+
+                    <h3>Search: {query}</h3>
+                    <div className="cards">
+                      {guides[0]
+                        .filter(
+                          (data) =>
+                            data.description
+                              .toLowerCase()
+                              .includes(query.toLowerCase()) ||
+                            data.tags
+                              .join()
+                              .toLowerCase()
+                              .includes(query.toLowerCase())
+                        )
+                        .map((data) => (
+                          <div className="card">
+                            <GuideCard data={data} key={data.slug} label={""} />
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                  </>
+                ) : (
+                  <></>
+                )}
               </section>
               <section>
+                <div>
+
                 <h3>Featured Guides</h3>
                 <div className="cards">
                   {guides ? (
                     guides[0]
                       .filter((data) => data.label.includes("Featured"))
                       .map((data) => (
-                        <div className="card">
+                        <div className="card" key={data.slug}>
                           <GuideCard
                             data={data}
                             key={data.slug}
@@ -81,14 +90,16 @@ const Guides = () => {
                     </div>
                   )}
                 </div>
+                </div>
               </section>
               <section>
+                <div>
                 <h3>Popular Guides</h3>
                 <div className="cards">
                   {guides[0]
                     .filter((data) => data.label.includes("Popular"))
                     .map((data) => (
-                      <div className="card">
+                      <div className="card" key={data.slug}>
                         <GuideCard
                           data={data}
                           key={data.slug}
@@ -97,14 +108,18 @@ const Guides = () => {
                       </div>
                     ))}
                 </div>
+
+                </div>
               </section>
               <section>
+                <div>
+
                 <h3>#Alexa</h3>
                 <div className="cards">
                   {guides[0]
                     .filter((data) => data.tags.includes("Echo"))
                     .map((data) => (
-                      <div className="card">
+                      <div className="card" key={data.slug}>
                         <GuideCard
                           data={data}
                           key={data.slug}
@@ -113,14 +128,17 @@ const Guides = () => {
                       </div>
                     ))}
                 </div>
+                </div>
               </section>
               <section>
+                <div>
+
                 <h3>#Philips Hue</h3>
                 <div className="cards">
                   {guides[0]
                     .filter((data) => data.tags.includes("Philips Hue"))
                     .map((data) => (
-                      <div className="card">
+                      <div className="card" key={data.slug}>
                         <GuideCard
                           data={data}
                           key={data.slug}
@@ -128,6 +146,7 @@ const Guides = () => {
                         />
                       </div>
                     ))}
+                </div>
                 </div>
               </section>
             </>
@@ -155,6 +174,11 @@ const Guides = () => {
       .coming-soon h2 {
         margin-bottom: 2rem;
       }
+      section {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+      }
         .search {
           display: flex;
           align-items: center;
@@ -179,6 +203,13 @@ const Guides = () => {
           flex-wrap: wrap;
           justify-content: flex-start;
           margin: 2rem .5rem;
+          max-width: 1272px;
+        }
+        .cards::after {
+          content: " ";
+          min-width: 424px;
+          max-width: 424px;
+          height: 10px;
         }
         
         @media only screen and (max-width: 1150px) {
@@ -192,7 +223,8 @@ const Guides = () => {
           }
         @media only screen and (min-width: 1150px) {
           .cards {
-            margin: 2rem 1rem;
+            justify-content: flex-start;
+            
           }
         }
       `}</style>

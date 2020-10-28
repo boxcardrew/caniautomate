@@ -45,6 +45,12 @@ export const GuideCard = ({ data, label }) => (
         position: relative;
         border-radius: 5px;
         margin-bottom: 3.75em;
+        margin-right: 1.5em;
+        transition: 250ms all;
+      }
+      .guide-card:hover, a .guide-card:focus {
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.26);
+       
       }
       .guide-card::before {
         content: "";

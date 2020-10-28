@@ -16,10 +16,10 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
 
   const [brandArray, setBrandArray] = useState({});
   const brands = [];
-  const [ratings, setRatings] = useState({ });
+  const [ratings, setRatings] = useState({});
 
   useEffect(() => {
-    let rating = {5: 0, 4: 0, 3: 0, 2: 0, 1: 0}
+    let rating = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
     if (!data) return;
     data.forEach((item) => {
       if (item.rating > 0 && item.rating < 2) {
@@ -39,8 +39,8 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
       }
     });
     const sortedRating = {};
-    Object.keys(rating).forEach(key => sortedRating[key] = rating[key])
-    setRatings(sortedRating)
+    Object.keys(rating).forEach((key) => (sortedRating[key] = rating[key]));
+    setRatings(sortedRating);
   }, [data]);
 
   useEffect(() => {
@@ -49,20 +49,18 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
       brands[item.brand] = brands[item.brand] ? (brands[item.brand] += 1) : 1;
     });
     setBrandArray(brands);
-
   }, [data]);
 
-
   useEffect(() => {
-  if (!data) return;
-  if (!loading) return;
-  const initialIsSelected = data.reduce((acc, d) => {
-    acc[d.brand] = false;
-    return acc;
-  }, {})
-  setIsSelected(initialIsSelected);
-  setLoading(false);
-  }, [data])
+    if (!data) return;
+    if (!loading) return;
+    const initialIsSelected = data.reduce((acc, d) => {
+      acc[d.brand] = false;
+      return acc;
+    }, {});
+    setIsSelected(initialIsSelected);
+    setLoading(false);
+  }, [data]);
 
   useEffect(() => {
     window.onpopstate = () => {
@@ -74,8 +72,7 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
   } else {
     var itemsjs = require("itemsjs")(data, {
       sortings: {
-        name_asc: {
-        },
+        name_asc: {},
       },
       aggregations: {
         bulbShape: {
@@ -129,40 +126,43 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
     }
   };
 
-
   // NEED TO ADD SHALLOW ROUTING????
   const handleCheckBox = (e) => {
     const newFilters = {
       ...filters,
       [e.target.name]: e.target.value,
     };
-    setIsSelected({...isSelected, [e.target.value]: true})
+    setIsSelected({ ...isSelected, [e.target.value]: true });
     setFilters({
       ...filters,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
-    router.push(
-      {
-        pathname: `/products/${cat}`,
-        query: newFilters,
-      },
-      undefined,
-      { shallow: true }
-    ).then(() => window.scrollTo(0, 0));
+    router
+      .push(
+        {
+          pathname: `/products/${cat}`,
+          query: newFilters,
+        },
+        undefined,
+        { shallow: true }
+      )
+      .then(() => window.scrollTo(0, 0));
     queryS = stringed;
     setIsOpen(!isOpen);
   };
   const handleRating = (e) => {
-    const ratingString = e.target.name + '>' + e.target.value
-    let current = window.location
-    window.location = current + '?' + ratingString
-    router.push(
-      {
-        pathname: `/products/${cat}`,
-      },
-      undefined,
-      { shallow: true }
-    ).then(() => window.scrollTo(0, 0));
+    const ratingString = e.target.name + ">" + e.target.value;
+    let current = window.location;
+    window.location = current + "?" + ratingString;
+    router
+      .push(
+        {
+          pathname: `/products/${cat}`,
+        },
+        undefined,
+        { shallow: true }
+      )
+      .then(() => window.scrollTo(0, 0));
     queryS = stringed;
     setIsOpen(!isOpen);
   };
@@ -175,23 +175,24 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const removeFilter = (e) => {
-    setIsSelected({...isSelected, [e.target.value]: false})
+    setIsSelected({ ...isSelected, [e.target.value]: false });
 
     delete filters[e.target.name];
 
-    setFilters(filters)
-    
+    setFilters(filters);
 
-    router.push(
-      {
-        pathname:`/products/${cat}`,
-        query: filters,
-      },
-      undefined,
-      { shallow: true }
-    ).then(() => window.scrollTo(0, 0))
+    router
+      .push(
+        {
+          pathname: `/products/${cat}`,
+          query: filters,
+        },
+        undefined,
+        { shallow: true }
+      )
+      .then(() => window.scrollTo(0, 0));
 
-    setIsOpen(!isOpen)
+    setIsOpen(!isOpen);
   };
 
   const menuOpen = isOpen
@@ -221,49 +222,81 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
       <div className={filterOpen}>
         {products ? (
           <div>
-            <h6>Brands</h6>
-            <ul>
-              {Object.entries(brandArray).map(([key, value]) => (
-                <li key={key} >
-                  <label className="input">
+            <div className="section compat">
+              <h6>Total Items: {data.length}</h6>
+            </div>
+            <div className="break"></div>
+            <div className="section compat">
+              <h6>Compatibility</h6>
+              <ul>
+                <li>
+                  <label>
                     <input
-                      name="brand"
+                      name="Compatibility Mode"
                       type="checkbox"
-                      checked={isSelected[key]}
-                      value={key}
-                      onChange={isSelected[key] ? removeFilter : handleCheckBox}
-                      autoComplete="off"
+                      onChange={changeCompat}
+                      checked={isCompatibilityMode}
                     />
                     <span className="checkbox"> </span>
-                    {key} ({value})
+                    Compatibility Mode
                   </label>
                 </li>
-              ))}
-            </ul>
-          
-          
-            <h6>Rating</h6>
-            <ul>
-              {Object.entries(ratings).reverse().map(([key, value]) => (
-                <li key={key}>
-                  <label className="input">
-                    <input
-                      name="rating"
-                      type="checkbox"
-                      checked={Object.values(router.query).includes(key)}
-                      value={key}
-                      onChange={isSelected[key] ? removeFilter : handleCheckBox}
-                      disabled={value < 1 ? true : false}
-                    />
-                    <span className="checkbox"> </span>
-                    <Stars number={key} /> ({value})
-                  </label>
-                </li>
-              ))}
-            </ul>
+              </ul>
+            </div>
+            <div className="break"></div>
+
+            <div className="section">
+              <h6>Brands</h6>
+              <ul>
+                {Object.entries(brandArray).map(([key, value]) => (
+                  <li key={key}>
+                    <label className="input">
+                      <input
+                        name="brand"
+                        type="checkbox"
+                        checked={isSelected[key]}
+                        value={key}
+                        onChange={
+                          isSelected[key] ? removeFilter : handleCheckBox
+                        }
+                        autoComplete="off"
+                      />
+                      <span className="checkbox"> </span>
+                      {key} ({value})
+                    </label>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="break"></div>
+            <div className="section">
+              <h6>Rating</h6>
+              <ul>
+                {Object.entries(ratings)
+                  .reverse()
+                  .map(([key, value]) => (
+                    <li key={key}>
+                      <label className="input">
+                        <input
+                          name="rating"
+                          type="checkbox"
+                          checked={Object.values(router.query).includes(key)}
+                          value={key}
+                          onChange={
+                            isSelected[key] ? removeFilter : handleCheckBox
+                          }
+                          disabled={value < 1 ? true : false}
+                        />
+                        <span className="checkbox"> </span>
+                        <Stars number={key} /> ({value})
+                      </label>
+                    </li>
+                  ))}
+              </ul>
+            </div>
           </div>
         ) : null}
-        {products ? (
+        {/* {products ? (
           <>
             <div>
               <label>
@@ -281,9 +314,9 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
           </>
         ) : (
           ""
-        )}
+        )} */}
         {/* {filters ? <button onClick={removeFilter()}>{filters}</button> : <span></span> } */}
-        {products
+        {/* {products
           ? Object.entries(products.data.aggregations).map(([key, value]) => (
               <div key={key}>
                 <h6>{value.title}</h6>
@@ -307,25 +340,30 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
                 </ul>
               </div>
             ))
-          : ""}
+          : ""} */}
       </div>
 
       <style jsx>
         {`
+          h6 {
+            margin-bottom: 0.5rem;
+          }
           .sidebar {
             grid-area: sidebar;
           }
-          input, .input {
-            cursor: pointer; 
+          input,
+          .input {
+            cursor: pointer;
+          }
+          .compat {
+            padding: 5px;
           }
           .break {
-            width: 60%;
-            background: #000;
+            width: 80%;
+            background: rgba(0, 0, 0, 0.26);
             height: 0.5px;
             content: "";
-            margin-top: 10px;
-            margin-bottom: 10px;
-            margin-left: 10px;
+            margin-bottom: 2rem;
           }
           .filter-list {
             padding-top: 60px;
@@ -346,11 +384,14 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
           .filter-list::-webkit-scrollbar {
             width: 4px;
           }
+          .section {
+            margin-bottom: 2rem;
+          }
           ul {
             list-style: none;
           }
           ul li {
-            padding: 5px 0;
+            padding: 0.5rem 0;
           }
           .input {
             position: relative;
@@ -364,7 +405,7 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
           input[type="checkbox"]:focus {
             opacity: 1;
             background: #1976d2;
-          } 
+          }
           input[type="checkbox"] + .checkbox {
             display: inline-block;
             vertical-align: text-top;
@@ -381,7 +422,6 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
             background: url(/checkbox-checked.svg);
             background-size: 1.05em 1.05em;
           }
-
 
           @media only screen and (max-width: 1150px) {
             .filter-list {
@@ -432,88 +472,88 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
   );
 };
 
-const Stars = ({number}) => (
+const Stars = ({ number }) => (
   <span className="rating">
     {number >= 1 && (
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="24"
-                viewBox="0 0 24 24"
-                width="24"
-              >
-                <path d="M0 0h24v24H0z" fill="none" />
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                <path d="M0 0h24v24H0z" fill="none" />
-              </svg>
-            </span>
-          )}
-          {number >= 2 && (
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="24"
-                viewBox="0 0 24 24"
-                width="24"
-              >
-                <path d="M0 0h24v24H0z" fill="none" />
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                <path d="M0 0h24v24H0z" fill="none" />
-              </svg>
-            </span>
-          )}
-          {number >= 3 && (
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="24"
-                viewBox="0 0 24 24"
-                width="24"
-              >
-                <path d="M0 0h24v24H0z" fill="none" />
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                <path d="M0 0h24v24H0z" fill="none" />
-              </svg>
-            </span>
-          )}
-          {number >= 4 && (
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="24"
-                viewBox="0 0 24 24"
-                width="24"
-              >
-                <path d="M0 0h24v24H0z" fill="none" />
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                <path d="M0 0h24v24H0z" fill="none" />
-              </svg>
-            </span>
-          )}
-          {number >= 5 && (
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="24"
-                viewBox="0 0 24 24"
-                width="24"
-              >
-                <path d="M0 0h24v24H0z" fill="none" />
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                <path d="M0 0h24v24H0z" fill="none" />
-              </svg>
-            </span>
-          )}
-          <style jsx>{`
-            .rating svg {
-              fill: #e0c620;
-              vertical-align: middle;
-              margin-bottom: 5px;
-              height: 1.2rem;
-              width: 1.2rem;
-            }
-          `}</style>
+      <span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+        >
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+          <path d="M0 0h24v24H0z" fill="none" />
+        </svg>
+      </span>
+    )}
+    {number >= 2 && (
+      <span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+        >
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+          <path d="M0 0h24v24H0z" fill="none" />
+        </svg>
+      </span>
+    )}
+    {number >= 3 && (
+      <span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+        >
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+          <path d="M0 0h24v24H0z" fill="none" />
+        </svg>
+      </span>
+    )}
+    {number >= 4 && (
+      <span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+        >
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+          <path d="M0 0h24v24H0z" fill="none" />
+        </svg>
+      </span>
+    )}
+    {number >= 5 && (
+      <span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+        >
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+          <path d="M0 0h24v24H0z" fill="none" />
+        </svg>
+      </span>
+    )}
+    <style jsx>{`
+      .rating svg {
+        fill: #e0c620;
+        vertical-align: middle;
+        margin-bottom: 5px;
+        height: 1.2rem;
+        width: 1.2rem;
+      }
+    `}</style>
   </span>
-)
+);
 
 export default Filter;
