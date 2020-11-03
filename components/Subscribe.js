@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import fetcher from "../libs/fetcher";
 
 function Subscribe() {
   const inputEl = useRef(null);
@@ -8,7 +9,7 @@ function Subscribe() {
   const subscribe = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("/api/emailSubscribe", {
+    const res = await fetcher("/api/emailSubscribe", {
       body: JSON.stringify({
         email: inputEl.current.value,
       }),
