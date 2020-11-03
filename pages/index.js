@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import Head from "next/head";
 import Layout from "../components/layout";
+import Subscribe from "../components/Subscribe";
 import Link from "next/link";
 import { getInitialQueryParams } from "../components/build-context";
 import { GuideCard } from "../components/guideCard";
@@ -91,6 +92,9 @@ const Home = () => {
             <Link href="/build">
               <a className="btn">Build Now</a>
             </Link>
+          </section>
+          <section className="subscribe">
+            <Subscribe />
           </section>
           <section className="explore">
             <div className="explore-heading">
@@ -283,6 +287,9 @@ const Home = () => {
           }
         }
 
+        .subscribe {
+          margin-bottom: 10rem;
+        }
         /* Explore Section */
 
         .explore {

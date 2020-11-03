@@ -93,7 +93,7 @@ const Nav = () => {
               )}
             </div>
             <div className="nav-right">
-              <li className="right">
+              {/* <li className="right">
                 <form className="search">
                   <span>
                     <svg
@@ -108,7 +108,7 @@ const Nav = () => {
                   </span>
                   <input placeholder="Search for anything"></input>
                 </form>
-              </li>
+              </li> */}
               {/* <li className="right">
                 <Link href="/">
                   <a>Alert</a>
@@ -133,9 +133,9 @@ const Nav = () => {
               </div>
             </li>
           </Link>
-          <li className="search-mobile">
+          {/* <li className="search-mobile">
             <input type="text" placeholder="Search for anything" aria-label="Search Products" />
-          </li>
+          </li> */}
           <li>
             <button className="hamburger" onClick={() => setMenuIsOpen(!menuIsOpen)} aria-label="Menu" >
               <img src="/hamburger.svg" height="30" width="30" alt="menu" />
