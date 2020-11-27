@@ -139,7 +139,7 @@ const GuideList = ({ title, data }) => {
           color: #f1f1f1;
           text-align: center;
           font-weight: 700;
-          padding: 4px 12px;
+          padding: 6px 12px;
           font-size: 12px;
           border-radius: 4px;
           background: #4173c0;
@@ -338,7 +338,7 @@ const GuideList = ({ title, data }) => {
             color: #0d0d0d50;
           }
           .td_where svg {
-            top: 19px;
+            top: 8px;
           }
 
           .td_buy {

@@ -136,6 +136,7 @@ const Nav = () => {
           {/* <li className="search-mobile">
             <input type="text" placeholder="Search for anything" aria-label="Search Products" />
           </li> */}
+          
           <li>
             <button className="hamburger" onClick={() => setMenuIsOpen(!menuIsOpen)} aria-label="Menu" >
               <img src="/hamburger.svg" height="30" width="30" alt="menu" />

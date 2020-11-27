@@ -279,7 +279,7 @@ const Home = () => {
         }
         @media only screen and (max-width: 1024px) {
           .hero {
-            margin-bottom: 4em;
+            margin-bottom: 6em;
             margin-top: 5em;
           }
           .hero .title {
@@ -288,7 +288,7 @@ const Home = () => {
         }
 
         .subscribe {
-          margin-bottom: 10rem;
+          margin-bottom: 6rem;
         }
         /* Explore Section */
 
@@ -368,6 +368,10 @@ const Home = () => {
           overflow: hidden;
         }
 
+        .subscribe {
+          margin-bottom: 10em;
+        }
+
         .brand-grid {
           display: grid;
           grid-auto-flow: column;
@@ -396,6 +400,9 @@ const Home = () => {
 
         .guides-heading {
           flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
         .guides-right .subtitle {
           margin-bottom: 0.5em;
