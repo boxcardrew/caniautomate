@@ -73,7 +73,7 @@ export default function Lighting() {
   return (
     <Layout>
       <Head>
-      <title>Can I Automate - Lighting</title>
+      <title>Can I Automate - {buttonTitle}</title>
       </Head>
       <div className="main">
         <Categroy button={buttonTitle} />

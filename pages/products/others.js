@@ -18,23 +18,29 @@ import { Skeleton } from "../../components/SkeletonCard";
 import { Card } from "../../components/Card";
 import Head from 'next/head';
 
-export default function Products() {
+let URL = `http://localhost:3000/api/explore?category=other`;
+
+export default function Other() {
   const buildParams = getQueryParams();
+
+  console.log(buildParams);
 
   const [isCompatibilityMode, setCompatibilityMode] = useState(true);
 
   let endpoint = isCompatibilityMode
-    ? `/api/explore?category=appliances`
-    : `/api/explore?category=appliances`;
+    ? `/api/explore?category=other`
+    : `/api/explore?category=other`;
 
+  console.log(endpoint);
   const { router } = useRouter();
   const { query } = useRouter();
   const { brand, price, rating } = query;
   let parsedQuery = URL;
-  let cat = "appliances";
+  let cat = "other";
   let queryS = queryString.stringify(query, {
     arrayFormat: "comma",
   });
+  console.log(query);
   if (brand || price || rating) {
     endpoint = endpoint + "&" + queryS;
   }
@@ -59,7 +65,7 @@ export default function Products() {
   /*Get Products */
   const { data } = useSWR(endpoint, fetcher);
 
-  const buttonTitle = "Appliances";
+  const buttonTitle = "Other";
 
   const compatibilityMode = () => {
     setCompatibilityMode(!isCompatibilityMode);
@@ -111,7 +117,11 @@ export default function Products() {
           )}{" "}
         </div>
         <div className="row">
-          {!data ? (
+          {data ? (
+            data.map((item) => (
+              <Card item={item} addFunc={addProduct} key={item.productId} />
+            ))
+          ) : (
             <>
               <Skeleton />
               <Skeleton />
@@ -123,20 +133,6 @@ export default function Products() {
               <Skeleton />
               <Skeleton />
             </>
-          ) : 
-            !data.length ? 
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", width: "100%", height: "100%" }}>
-            <h2>Nothing Found. Try Again.</h2>
-            <div>
-              <img src="/not-found.svg" height="300px" width="300px" />
-            </div>
-            
-            </div>
-            :
-            (
-            data.map((item) => (
-              <Card item={item} addFunc={addProduct} key={item.productId} />
-            ))
           )}
         </div>
 

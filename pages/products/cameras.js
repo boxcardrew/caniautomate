@@ -15,6 +15,7 @@ import {
 } from "../../components/build-context";
 import { Skeleton } from "../../components/SkeletonCard";
 import { Card } from "../../components/Card";
+import Head from 'next/head';
 
 
 export default function Products() {
@@ -67,6 +68,9 @@ export default function Products() {
 
   return (
     <Layout>
+      <Head>
+      <title>Can I Automate - {buttonTitle}</title>
+      </Head>
       <div className="main">
         <Categroy button={buttonTitle} />
         <Filter

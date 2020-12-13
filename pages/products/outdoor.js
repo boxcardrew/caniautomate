@@ -15,6 +15,7 @@ import {
 } from "../../components/build-context";
 import { Skeleton } from "../../components/SkeletonCard";
 import { Card } from "../../components/Card";
+import Head from 'next/head';
 
 let URL = `http://localhost:3000/api/explore?category=outdoor`;
 
@@ -73,6 +74,9 @@ export default function Products() {
 
   return (
     <Layout>
+      <Head>
+      <title>Can I Automate - {buttonTitle}</title>
+      </Head>
       <div className="main">
         <Categroy button={buttonTitle} />
         <Filter
