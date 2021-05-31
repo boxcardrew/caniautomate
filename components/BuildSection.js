@@ -57,7 +57,7 @@ const BuildSection = ({ title, category, data, remove }) => (
                   </svg>
                 </td>
                 <td className="td_buy">
-                  <a href={link} className="btn primary" target="_blank">
+                  <a href={link + '?tag=aaecho01-20'} className="btn primary" target="_blank">
                     Check Price
                   </a>
                 </td>
