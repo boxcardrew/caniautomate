@@ -18,6 +18,7 @@ const Build = () => {
   /*List Context*/
   const { list } = useListState();
   const dispatch = useListDispatch();
+  const [showNotification, setShowNotification] = useState(true);
 
   const removeItem = (item) => {
     dispatch({
@@ -85,6 +86,16 @@ const Build = () => {
           <div>loading</div>
         ) : (
           <div className="main">
+            {showNotification ? (
+              <div className="notif-container">
+                <div className="notification">
+                  <span>We may earn a commission from links on this site.</span>
+                  <button onClick={() => setShowNotification(false)}>
+                    Dismiss
+                  </button>
+                </div>
+              </div>
+            ) : null}
             <div>
               <BuildSection
                 title="Hubs & Bridges"
@@ -110,7 +121,9 @@ const Build = () => {
               <BuildSection
                 title="Speakers & Displays"
                 category="speakers"
-                data={newData.filter((item) => item.category.includes('speakers'))}
+                data={newData.filter((item) =>
+                  item.category.includes("speakers")
+                )}
                 remove={removeItem}
               />
               <BuildSection
@@ -220,6 +233,39 @@ const Build = () => {
 
         #remove-button {
           vertical-align: middle;
+        }
+
+        .notif-container {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .notification {
+          margin: 1em auto;
+          background: #4173c0;
+          display: inline-block;
+          text-align: center;
+          padding: 1em 1.5em;
+          border-radius: 4px;
+          color: #f1f1f1;
+          box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+        }
+        .notification span {
+          margin-right: 2em;
+          display: inline-block;
+        }
+
+        .notification button {
+          background: none;
+          border: none;
+          font-weight: 700;
+          color: #f1f1f1;
+          font-size: 1rem;
+          padding: 0;
+          margin: 0;
+          cursor: pointer;
         }
 
         @media screen and (min-width: 851px) {
