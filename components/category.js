@@ -42,7 +42,7 @@ const Category = ({ button }) => {
 
   return (
     <div className="filter">
-      <ul id="scrollable" className="list">
+      <ul id="scrollable" className="list" style={{ display: "none" }}>
         {links.map(({ path, title }) => (
           <li key={path} className="item">
             <ActiveLink href={path} activeClassName="active">
@@ -71,16 +71,17 @@ const Category = ({ button }) => {
       <style jsx>
         {`
           .filter {
+            
             grid-area: filter;
             position: fixed;
             top: 100px;
             left: 0;
             width: 100vw;
-            height: 80px;
+            height: 0px;
             background: transparent
               linear-gradient(90deg, #4173c0 0%, #5c9af8 100%) 0% 0% no-repeat;
             box-shadow: 0px 3px 6px #00000029;
-            z-index: 3;
+            
           }
           .select-css {
             display: none;
@@ -91,6 +92,7 @@ const Category = ({ button }) => {
               top: 60px;
               background: #fff;
               height: 42px;
+              z-index: 3;
             }
             #scrollable {
               display: none;

@@ -34,7 +34,7 @@ const useIsMounted = () => {
 
 const Home = () => {
   const { guides } = data;
-  console.log(guides);
+  // console.log(guides);
   const isMounted = useIsMounted();
   const brandRef = useRef();
   if (isMounted) {

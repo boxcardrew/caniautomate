@@ -16,9 +16,11 @@ const ActiveLink = ({ children, activeClassName, ...props }) => {
 
   return (
     <Link {...props}>
+      <a>
       {React.cloneElement(child, {
         className: className || null,
       })}
+      </a>
     </Link>
   )
 }

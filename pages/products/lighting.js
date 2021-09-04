@@ -125,7 +125,7 @@ export default function Lighting() {
         <style jsx>{`
           .main {
             display: grid;
-            grid-template-rows: 80px 80px 1fr;
+            grid-template-rows: 0px 80px 1fr;
             grid-template-columns: 300px 1fr;
             grid-template-areas:
               "filter filter"
