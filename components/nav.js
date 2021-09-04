@@ -124,13 +124,15 @@ const Nav = () => {
                     </li>
                   </ActiveLink>
                 ))}
-                <li className="nav-item-hover">
+
+                <div className="nav-item-hover">
                   <Link href="/products/hubs">
                     <a className="hover-link">
                       <img src="/explorex2.png" width="36px" height="36px" />
                       <span className="label">Explore</span>
                     </a>
                   </Link>
+
                   <div className="hover-menu">
                     <ul className="featured-list">
                       {categories
@@ -165,7 +167,7 @@ const Nav = () => {
                         ))}
                     </ul>
                   </div>
-                </li>
+                </div>
               </ul>
             </div>
             <div className="nav-right">{/*Log In, Profile, Etc. */}</div>
@@ -189,9 +191,11 @@ const Nav = () => {
               onClick={() => setMenuIsOpen(!menuIsOpen)}
               aria-label="Menu"
             >
-              { menuIsOpen ?<img src="/close.svg" height="30" width="30" alt="menu" />
-              :
-              <img src="/hamburger.svg" height="30" width="30" alt="menu" />}
+              {menuIsOpen ? (
+                <img src="/close.svg" height="30" width="30" alt="menu" />
+              ) : (
+                <img src="/hamburger.svg" height="30" width="30" alt="menu" />
+              )}
             </button>
           </li>
         </ul>
@@ -251,6 +255,9 @@ const Nav = () => {
         }
         #small-nav {
           display: none;
+        }
+        .nav-item-hover {
+          padding: 6px 8px;
         }
         .nav-item-hover:hover .hover-menu { 
           visibility: visible;
@@ -338,7 +345,7 @@ const Nav = () => {
           padding: 0;
         }
         }
-        .nav-left li > a {
+        .nav-left li > a, .nav-item-hover > a{
           width: 105px;
           height: 82px;
           margin: 0 20px;
@@ -352,7 +359,7 @@ const Nav = () => {
         .nav-left li:hover, .nav-left li:focus {
           
         }
-        .nav-left li a:hover {
+        .nav-left li a:hover, .nav-item-hover:hover > a {
           color: #4173c0;
         }
         #expanded {
