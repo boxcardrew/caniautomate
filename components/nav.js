@@ -324,6 +324,10 @@ const Nav = () => {
           padding: 0 1em; 
         }
 
+        .list li:hover {
+          color: #4173c0;
+        }
+
 
         .logo {
           grid-area: logo;

@@ -496,6 +496,14 @@ const Build = () => {
           .btn.secondary.large {
             display: none;
           }
+          .notification {
+            width: 95%;
+            padding: 1em;
+          }
+          .notification span {
+            margin-right: 0;
+            margin-bottom: 1em;
+          }
         }
       `}</style>
     </div>

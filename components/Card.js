@@ -109,7 +109,7 @@ export const Card = ({ item, addFunc }) => (
         align-items: center;
       }
       .card:hover {
-        box-shadow: 0px 3px 6px rgba(65,115,192,.25);
+        box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.15);
       }
       .card-info {
         color: #030303;
@@ -131,6 +131,9 @@ export const Card = ({ item, addFunc }) => (
       .add svg {
         height: 25px;
         width: 25px;
+        fill: #4173c0;
+      }
+      .add svg:hover {
         fill: #4173c0;
       }
       .card h3 {
@@ -198,7 +201,7 @@ export const Card = ({ item, addFunc }) => (
         .add svg {
           height: 35px;
           width: 35px;
-          fill: #4173c0;
+          fill: #A0A0A0;
         }
         .rating span svg {
           height: 1.35em;

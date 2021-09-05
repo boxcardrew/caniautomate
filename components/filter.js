@@ -217,7 +217,7 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
         <button onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? "Close" : "Filter"}
         </button>
-        <button>Sort</button>
+        {/* <button>Sort</button> */}
       </div>
       <div className={filterOpen}>
         {products ? (
@@ -445,7 +445,7 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
             }
             .button-wrapper {
               display: flex;
-              justify-content: space-between;
+              justify-content: center;
               width: 90%;
               max-width: 680px;
               margin: 0 auto;
@@ -457,7 +457,7 @@ const Filter = ({ data, queryS, cat, compatMode, isCompatibilityMode }) => {
               flex: 1 1 auto;
               padding: 10px 16px;
               border: none;
-              max-width: calc(50% - 1rem);
+              max-width: calc(100% - 2em);
               box-shadow: 0px 3px 6px #00000029;
             }
             .sidebar {

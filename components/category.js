@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import ActiveLink from "../libs/ActiveLink";
+import Link from "next/link";
 
 const links = [
   { path: "/products/lighting", title: "Lighting & Switches" },
@@ -59,9 +60,9 @@ const Category = ({ button }) => {
           <ul>
             {notActiveLink.map(({ path, title }) => (
               <li key={path} className="mobile-item">
-                <ActiveLink href={path} activeClassName="active">
+                <Link href={path}>
                   <a className="">{title}</a>
-                </ActiveLink>
+                </Link>
               </li>
             ))}
           </ul>
@@ -115,6 +116,7 @@ const Category = ({ button }) => {
             }
             .category-select > ul {
               list-style: none;
+              padding-bottom: 2em;
             }
             .category-select > ul li {
               padding: 10px 0;
