@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@mdx-js/loader": "^1.6.18",
+    "@mdx-js/loader": "^2.1.5",
     "@next/mdx": "^9.5.3",
     "api-query-params": "^4.15.0",
     "cookie": "^0.4.1",
@@ -16,7 +16,7 @@
     "itemsjs": "^1.0.49",
     "js-cookie": "^2.2.1",
     "mongodb": "^3.5.9",
-    "next": "^9.3.6",
+    "next": "^13.0.2",
     "next-connect": "^0.6.6",
     "query-string": "^6.13.1",
     "react": "16.10.2",
